@@ -10,7 +10,7 @@ before_script:
   - bower install
   - sudo apt-get update
   - sudo apt-get install mono-complete
-  - mono nuget.exe install
+  - mono nuget install 
 script:
   - gulp default
   - gulp nuget-pack --apikey $apikey
