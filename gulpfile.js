@@ -63,4 +63,4 @@ gulp.task('nuget-pack', function(apikey) {
   });
 
 gulp.task('deploy', ['scripts']);
-gulp.task('default', ['scripts', 'test', 'nuget-download']);
+gulp.task('default', ['scripts', 'test', 'nuget-download']); 
