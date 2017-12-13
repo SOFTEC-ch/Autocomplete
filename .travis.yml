@@ -10,4 +10,5 @@ before_script:
   - bower install
 script:
   - gulp default
-  - nuget pack Softec.Web.Autocomplete.nuspec /Verbosity detailed
+  - gulp nuget-pack --apikey $apikey
+  

@@ -1,11 +1,15 @@
 'use strict'
-const gulp = require('gulp'),
+const gulp = require('gulp-param')(require('gulp'), process.argv),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     babel = require('gulp-babel'),
     concat = require('gulp-concat'),
     server = require('karma').Server,
-    wrap = require("gulp-wrap");
+    wrap = require("gulp-wrap"),
+    request = require('request'),
+    fs = require('fs'),
+    nuget = require('gulp-nuget');
+
 
 // Concatenate & Minify JS
 gulp.task('scripts', function () {
@@ -40,5 +44,24 @@ gulp.task('tdd', function (done) {
     return gulp.watch('src/*.js', ['scripts']);
 });
 
+gulp.task('nuget-download', function(done) {
+    if(fs.existsSync('nuget.exe')) {
+        return done();
+    }
+
+    request.get('http://nuget.org/nuget.exe')
+        .pipe(fs.createWriteStream('nuget.exe'))
+        .on('close', done);
+    
+});
+
+gulp.task('nuget-pack', function(apikey) {
+    var nugetPath = 'nuget.exe';
+  
+    return gulp.src('Softec.Web.Autocomplete.nuspec')
+      .pipe(nuget.pack({ nuget: nugetPath, version: "1.0.0" }))
+      .pipe(gulp.dest(apikey + 'project.1.0.0.nupkg'));
+  });
+
 gulp.task('deploy', ['scripts']);
-gulp.task('default', ['scripts', 'test']);
+gulp.task('default', ['scripts', 'test', 'nuget-download']);
