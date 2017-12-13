@@ -1,6 +1,7 @@
 # autocomplete
 
 ![status image from travis ci](https://travis-ci.org/SOFTEC-ch/Autocomplete.svg?branch=master)
+![dependencies status](https://david-dm.org/SOFTEC-ch/Autocomplete.svg)
 
 Run these commands from the command-line.
 #### Dependencies
