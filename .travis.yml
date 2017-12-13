@@ -1,0 +1,8 @@
+before_script:
+  - npm install -g gulp-cli
+  - npm install
+  * bower install
+script:
+  - gulp build
+  - karma start --single-run
+
