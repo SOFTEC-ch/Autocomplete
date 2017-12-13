@@ -1,5 +1,5 @@
 'use strict'
-const gulp = require('gulp-param')(require('gulp'), process.argv),
+const gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     babel = require('gulp-babel'),
@@ -54,13 +54,6 @@ gulp.task('nuget-download', function(done) {
         .on('close', done);
 });
 
-gulp.task('nuget-pack', function(apikey) {
-    var nugetPath = 'nuget.exe';
-  
-    return gulp.src('Softec.Web.Autocomplete.nuspec')
-      .pipe(nuget.pack({ nuget: nugetPath, version: "1.0.0" }))
-      .pipe(gulp.dest(apikey + 'project.1.0.0.nupkg'));
-  });
 
 gulp.task('deploy', ['scripts']);
 gulp.task('default', ['scripts', 'test']); 
