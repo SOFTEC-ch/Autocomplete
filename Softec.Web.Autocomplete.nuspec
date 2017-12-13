@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Softec.Web.Autocomplete</id>
+    <version>1.0.22</version>
+    <authors>SOFTEC AG, PD</authors>
+    <owners>SOFTEC AG</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>JQuery Autocomplete Component</description>
+    <releaseNotes>
+    1.0.20:
+        - Autocomplete kann implizit ueber das Html initialisiert werden. Folgendes Attribut muss auf dem ELement sein: data-provide="softec-autocomplete"
+    1.0.19:
+        - onSelected enthält das autocomplete Objekt als Parameter.
+    1.0.18:
+        - Performance beim reinitialisieren verbessert.
+    1.0.17:
+        - Komponente wird mit neuen Optionen reinitialisiert wenn autocomplete ein zweites Mal auf dem selben Element ausgefuehrt wird.
+    1.0.15:
+        - Fix des request-bundler beim request von verschiedenen URL's.
+    1.0.14:
+        - Öffnet das dropdown-menu nach oben wenn unter dem Feld zu wenig Platz verfügbar ist.
+        - appendToBody Option
+    1.0.13:
+        - Performance Verbesserung
+    1.0.12:
+        - filterOn and validateOn options hinzugefuegt
+        - initial-value-selected event
+    </releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>jQuery Javascript Autocomplete Dropdown</tags>
+    <dependencies>
+      <!--<dependency id="jQuery" version="2.0.0" />-->
+    </dependencies>
+  </metadata>
+  <files>
+      <file src="dist\*.js" target="content/Scripts" />
+      <file src="typings\autocomplete.d.ts" target="content/Scripts/typings/autocomplete" />
+  </files>
+</package>
