@@ -52,7 +52,6 @@ gulp.task('nuget-download', function(done) {
     request.get('http://nuget.org/nuget.exe')
         .pipe(fs.createWriteStream('nuget.exe'))
         .on('close', done);
-    
 });
 
 gulp.task('nuget-pack', function(apikey) {

@@ -8,6 +8,8 @@ before_script:
   - npm install --save-dev gulp-cli bower
   - npm install
   - bower install
+  - sudo apt-get install mono-complete
+  - mono nuget.exe install
 script:
   - gulp default
   - gulp nuget-pack --apikey $apikey
