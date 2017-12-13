@@ -12,5 +12,4 @@ before_script:
   - sudo apt-get install mono-complete 
 script:
   - gulp default
-  - gulp nuget-pack --apikey $apikey
   
