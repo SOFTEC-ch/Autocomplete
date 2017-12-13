@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - "node"
 before_script:
-  - npm install -g gulp-cli
+  - npm install -g gulp
+  - npm install --save-dev gulp-cli bower
   - npm install
   - bower install
 script:
   - gulp build
-  - karma start --single-run
