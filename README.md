@@ -1,5 +1,7 @@
 # autocomplete
 
+https://travis-ci.org/SOFTEC-ch/Autocomplete.svg?branch=master
+
 Run these commands from the command-line.
 #### Dependencies
 ```
@@ -38,6 +40,6 @@ Name | Description
 initial-value-selected | Will be triggered as soon as the initial value is selected. Initial value is optionally provided by the referenced `valueField`. The value will only be selected if the `dataSource` contains a corresponding element.
 
 ## Open Tasks
-1. After filter invokation, the autocomplete should only select an item if there is only one matching element. 
-1. The component should provide a `select (subsetOfMatchingElements[])` option to pass a function which will be called, when there are multiple matching elements. 
+1. After filter invokation, the autocomplete should only select an item if there is only one matching element.
+1. The component should provide a `select (subsetOfMatchingElements[])` option to pass a function which will be called, when there are multiple matching elements.
 1. It should also provide a default implementation for the `select` option.
