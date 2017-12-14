@@ -6,9 +6,7 @@ const gulp = require('gulp'),
     concat = require('gulp-concat'),
     server = require('karma').Server,
     wrap = require("gulp-wrap"),
-    request = require('request'),
-    fs = require('fs'),
-    nuget = require('gulp-nuget');
+    fs = require('fs');
 
 
 // Concatenate & Minify JS
@@ -44,15 +42,6 @@ gulp.task('tdd', function (done) {
     return gulp.watch('src/*.js', ['scripts']);
 });
 
-gulp.task('nuget-download', function(done) {
-    if(fs.existsSync('nuget.exe')) {
-        return done();
-    }
-
-    request.get('http://nuget.org/nuget.exe')
-        .pipe(fs.createWriteStream('nuget.exe'))
-        .on('close', done);
-});
 
 
 gulp.task('deploy', ['scripts']);
