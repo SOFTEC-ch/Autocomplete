@@ -160,10 +160,11 @@ describe('Autocomplete', function () {
 
         // fire the input event as if someone was typing
         fireInputEvent($input[0]);
+        // loose focus
+        fireBlurEvent($input[0]);
 
         expect($input.val()).toBe('asd')
 
-        button.click();
         expect(dropdown).toBeEmpty();
     });
 
