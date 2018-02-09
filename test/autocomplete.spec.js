@@ -9,7 +9,8 @@ describe('Autocomplete', function () {
     const test_dataSource = [
         {value: 1234, name: 'asdf'},
         {value: 5678, name: 'ghjk'},
-        {value: 9999, name: 'xxxx'}];
+        {value: 9999, name: 'xxxx'},
+        {value: 9998, name: 'addd'}];
 
     const fireInputEvent = (element) => {
         fireEvent(element, 'input');    // fire the input event as if someone was typing
@@ -60,11 +61,110 @@ describe('Autocomplete', function () {
 
         expect(dropdown).not.toBeEmpty();
 
-        expect(dropdown.children().length).toBe(3);
+        expect(dropdown.children().length).toBe(4);
         expect(dropdown.children().eq(1).text()).toBe(options.dataSource[1].name);
         expect(+dropdown.children().eq(2).attr('value')).toBe(options.dataSource[2].value);
 
         button.click();
+        expect(dropdown).toBeEmpty();
+    });
+
+    it('should not select an item when multiple options are available', function () {
+        let $input = $('.test-element');
+        let options = {dataSource: test_dataSource};
+        $('.test-element').autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+        let button = $('.autocomplete button.btn.btn-default');
+        button.click();
+        button.focus();
+
+        $input.val('a');
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
+        expect(dropdown).not.toBeEmpty();
+
+        expect(dropdown.children().length).toBe(2);
+        expect(dropdown.children().eq(0).text()).toBe(options.dataSource[0].name);
+        expect(+dropdown.children().eq(1).attr('value')).toBe(options.dataSource[3].value);
+
+        button.click();
+        expect(dropdown).toBeEmpty();
+    });
+
+    it('should select an item when only one option is available', function () {
+        let $input = $('.test-element');
+        let options = {dataSource: test_dataSource};
+        $('.test-element').autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+        let button = $('.autocomplete button.btn.btn-default');
+        button.click();
+        button.focus();
+
+        $input.val('as');
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
+        expect(dropdown).not.toBeEmpty();
+
+        expect(dropdown.children().length).toBe(1);
+        expect(dropdown.children().eq(0).text()).toBe(options.dataSource[0].name);
+        expect(+dropdown.children().eq(0).attr('value')).toBe(options.dataSource[0].value);
+
+        expect($input.val()).toBe('asdf')
+        button.click();
+        expect(dropdown).toBeEmpty();
+    });
+
+    it('should be possible to delete a character from the input when a autoselection happend before', function () {
+        let $input = $('.test-element');
+        let options = {dataSource: test_dataSource};
+        $('.test-element').autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+        let button = $('.autocomplete button.btn.btn-default');
+        button.click();
+        button.focus();
+
+        $input.val('as');
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
+        expect(dropdown).not.toBeEmpty();
+
+        expect(dropdown.children().length).toBe(1);
+        expect(dropdown.children().eq(0).text()).toBe(options.dataSource[0].name);
+        expect(+dropdown.children().eq(0).attr('value')).toBe(options.dataSource[0].value);
+
+        expect($input.val()).toBe('asdf')
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+        $input.val('asd');
+
+        expect($input.val()).toBe('asd')
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+        // loose focus
+        fireBlurEvent($input[0]);
+
+        expect($input.val()).toBe('asd')
+
         expect(dropdown).toBeEmpty();
     });
 
