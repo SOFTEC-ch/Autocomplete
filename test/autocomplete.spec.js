@@ -97,7 +97,7 @@ describe('Autocomplete', function () {
         expect(dropdown).toBeEmpty();
     });
 
-    it('should not select an item when only one option is available', function () {
+    it('should select an item when only one option is available', function () {
         let $input = $('.test-element');
         let options = {dataSource: test_dataSource};
         $('.test-element').autocomplete(options);
@@ -122,6 +122,47 @@ describe('Autocomplete', function () {
         expect(+dropdown.children().eq(0).attr('value')).toBe(options.dataSource[0].value);
 
         expect($input.val()).toBe('asdf')
+        button.click();
+        expect(dropdown).toBeEmpty();
+    });
+
+    it('should be possible to delete a character from the input when a autoselection happend before', function () {
+        let $input = $('.test-element');
+        let options = {dataSource: test_dataSource};
+        $('.test-element').autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+        let button = $('.autocomplete button.btn.btn-default');
+        button.click();
+        button.focus();
+
+        $input.val('as');
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
+        expect(dropdown).not.toBeEmpty();
+
+        expect(dropdown.children().length).toBe(1);
+        expect(dropdown.children().eq(0).text()).toBe(options.dataSource[0].name);
+        expect(+dropdown.children().eq(0).attr('value')).toBe(options.dataSource[0].value);
+
+        expect($input.val()).toBe('asdf')
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+        $input.val('asd');
+
+        expect($input.val()).toBe('asd')
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
+        expect($input.val()).toBe('asd')
+
         button.click();
         expect(dropdown).toBeEmpty();
     });
