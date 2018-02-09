@@ -10,7 +10,6 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="dist/autocomplete.js"></script>
 </head>
-<body>
 <style>
     body {
         padding: 50px;
@@ -22,29 +21,30 @@
         overflow-y: auto;
     }
 </style>
+<body>
 <div class="row">
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="note-lookup"/>
+        <input type="text" placeholder="Note eingeben..." class="lookup"/>
         <input type="hidden" id="hidden-field"/>
     </div>
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="note-lookup"/>
+        <input type="text" placeholder="Note eingeben..." class="lookup"/>
     </div>
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="note-lookup"/>
+        <input type="text" placeholder="Note eingeben..." class="lookup"/>
     </div>
 
     <script type="application/javascript">
 
         const filter = function (input, data) {
             return data.filter(x => {
-                return (x.ntsk_eingabewert && ~x.ntsk_eingabewert.indexOf(input)) || x.ntsk_bezeichnung === input
+                return (!x.ignore && ~x.name.indexOf(input)) || x.name === input
             });
         };
 
         const validation = function (inputValue, data) {
             if (inputValue) {
-                let matches = data.filter(x => x.ntsk_id === +this.selected.value && x.ntsk_bezeichnung === inputValue);
+                let matches = data.filter(x => x.id === +this.selected.value && x.name === inputValue);
                 if (!matches || !matches.length) {
 //                    alert('Es wurde ein falscher Wert eingegeben!');
 //                    return false;
@@ -53,687 +53,89 @@
             }
         };
 
-        $('.note-lookup').autocomplete({
+        $('.lookup').autocomplete({
             validation,
             filter,
             appendToBody: true,
-            valueProperty: 'ntsk_id',
-            nameProperty: 'ntsk_bezeichnung',
+            valueProperty: 'id',
+            nameProperty: 'name',
             valueField: '#hidden-field',
             dataSource: [{
-                "ntsk_id": 90,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "--",
-                "ktrm_updrights": 0,
-                "ntsk_index": 10090,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10090,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 242,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "Austritt",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "A",
-                "ntsk_index": 10242,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10242,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 89,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "bes.",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "b",
-                "ntsk_index": 10089,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10089,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 152,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "disp.",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "d",
-                "ntsk_index": 10152,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10152,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 362,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "ERF",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "erf",
-                "ntsk_index": 10362,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10362,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 361,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "NERF",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "nerf",
-                "ntsk_index": 10361,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10361,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 239,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "teildisp.",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "t",
-                "ntsk_index": 10239,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10239,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 256,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "VA",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "VA",
-                "ntsk_index": 10256,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10256,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 98,
-                "ntsk_note_numerisch": 1.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "1",
-                "ntsk_index": 10098,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10098,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 99,
-                "ntsk_note_numerisch": 1.10,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.1",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "11",
-                "ntsk_index": 10099,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10099,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 100,
-                "ntsk_note_numerisch": 1.20,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.2",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "12",
-                "ntsk_index": 10100,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10100,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 101,
-                "ntsk_note_numerisch": 1.30,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.3",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "13",
-                "ntsk_index": 10101,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10101,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 102,
-                "ntsk_note_numerisch": 1.40,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.4",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "14",
-                "ntsk_index": 10102,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10102,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 103,
-                "ntsk_note_numerisch": 1.50,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.5",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "15",
-                "ntsk_index": 10103,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10103,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 105,
-                "ntsk_note_numerisch": 1.60,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.6",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "16",
-                "ntsk_index": 10105,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10105,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 107,
-                "ntsk_note_numerisch": 1.70,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.7",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "17",
-                "ntsk_index": 10107,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10107,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 116,
-                "ntsk_note_numerisch": 1.80,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.8",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "18",
-                "ntsk_index": 10116,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10116,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 115,
-                "ntsk_note_numerisch": 1.90,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "1.9",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "19",
-                "ntsk_index": 10115,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10115,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 113,
-                "ntsk_note_numerisch": 2.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "2",
-                "ntsk_index": 10113,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10113,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 112,
-                "ntsk_note_numerisch": 2.10,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.1",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "21",
-                "ntsk_index": 10112,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10112,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 111,
-                "ntsk_note_numerisch": 2.20,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.2",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "22",
-                "ntsk_index": 10111,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10111,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 110,
-                "ntsk_note_numerisch": 2.30,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.3",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "23",
-                "ntsk_index": 10110,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10110,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 109,
-                "ntsk_note_numerisch": 2.40,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.4",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "24",
-                "ntsk_index": 10109,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10109,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 108,
-                "ntsk_note_numerisch": 2.50,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.5",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "25",
-                "ntsk_index": 10108,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10108,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 119,
-                "ntsk_note_numerisch": 2.60,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.6",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "26",
-                "ntsk_index": 10119,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10119,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 118,
-                "ntsk_note_numerisch": 2.70,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.7",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "27",
-                "ntsk_index": 10118,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10118,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 117,
-                "ntsk_note_numerisch": 2.80,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.8",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "28",
-                "ntsk_index": 10117,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10117,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 106,
-                "ntsk_note_numerisch": 2.90,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "2.9",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "29",
-                "ntsk_index": 10106,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10106,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 153,
-                "ntsk_note_numerisch": 3.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "3",
-                "ntsk_index": 10153,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10153,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 121,
-                "ntsk_note_numerisch": 3.10,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.1",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "31",
-                "ntsk_index": 10121,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10121,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 122,
-                "ntsk_note_numerisch": 3.20,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.2",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "32",
-                "ntsk_index": 10122,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10122,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 123,
-                "ntsk_note_numerisch": 3.30,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.3",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "33",
-                "ntsk_index": 10123,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10123,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 124,
-                "ntsk_note_numerisch": 3.40,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.4",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "34",
-                "ntsk_index": 10124,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10124,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 125,
-                "ntsk_note_numerisch": 3.50,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.5",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "35",
-                "ntsk_index": 10125,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10125,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 126,
-                "ntsk_note_numerisch": 3.60,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.6",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "36",
-                "ntsk_index": 10126,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10126,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 127,
-                "ntsk_note_numerisch": 3.70,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.7",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "37",
-                "ntsk_index": 10127,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10127,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 128,
-                "ntsk_note_numerisch": 3.80,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.8",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "38",
-                "ntsk_index": 10128,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10128,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 129,
-                "ntsk_note_numerisch": 3.90,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "3.9",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "39",
-                "ntsk_index": 10129,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10129,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 130,
-                "ntsk_note_numerisch": 4.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "40",
-                "ntsk_index": 10130,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10130,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 131,
-                "ntsk_note_numerisch": 4.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "4",
-                "ntsk_index": 10131,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10131,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 132,
-                "ntsk_note_numerisch": 4.10,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.1",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "41",
-                "ntsk_index": 10132,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10132,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 133,
-                "ntsk_note_numerisch": 4.20,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.2",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "42",
-                "ntsk_index": 10133,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10133,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 134,
-                "ntsk_note_numerisch": 4.30,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.3",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "43",
-                "ntsk_index": 10134,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10134,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 135,
-                "ntsk_note_numerisch": 4.40,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.4",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "44",
-                "ntsk_index": 10135,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10135,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 136,
-                "ntsk_note_numerisch": 4.50,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.5",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "45",
-                "ntsk_index": 10136,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10136,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 137,
-                "ntsk_note_numerisch": 4.60,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.6",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "46",
-                "ntsk_index": 10137,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10137,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 138,
-                "ntsk_note_numerisch": 4.70,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.7",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "47",
-                "ntsk_index": 10138,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10138,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 139,
-                "ntsk_note_numerisch": 4.80,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.8",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "48",
-                "ntsk_index": 10139,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10139,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 140,
-                "ntsk_note_numerisch": 4.90,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "4.9",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "49",
-                "ntsk_index": 10140,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10140,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 215,
-                "ntsk_note_numerisch": 5.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "50",
-                "ntsk_index": 10215,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10215,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 120,
-                "ntsk_note_numerisch": 5.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "5",
-                "ntsk_index": 10120,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10120,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 142,
-                "ntsk_note_numerisch": 5.10,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.1",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "51",
-                "ntsk_index": 10142,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10142,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 143,
-                "ntsk_note_numerisch": 5.20,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.2",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "52",
-                "ntsk_index": 10143,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10143,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 144,
-                "ntsk_note_numerisch": 5.30,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.3",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "53",
-                "ntsk_index": 10144,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10144,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 145,
-                "ntsk_note_numerisch": 5.40,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.4",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "54",
-                "ntsk_index": 10145,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10145,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 146,
-                "ntsk_note_numerisch": 5.50,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.5",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "55",
-                "ntsk_index": 10146,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10146,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 147,
-                "ntsk_note_numerisch": 5.60,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.6",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "56",
-                "ntsk_index": 10147,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10147,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 148,
-                "ntsk_note_numerisch": 5.70,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.7",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "57",
-                "ntsk_index": 10148,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10148,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 149,
-                "ntsk_note_numerisch": 5.80,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.8",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "58",
-                "ntsk_index": 10149,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10149,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 150,
-                "ntsk_note_numerisch": 5.90,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "5.9",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "59",
-                "ntsk_index": 10150,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10150,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 151,
-                "ntsk_note_numerisch": 6.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "6.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "60",
-                "ntsk_index": 10151,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10151,
-                "ntsk_ds_id": 2
-            }, {
-                "ntsk_id": 141,
-                "ntsk_note_numerisch": 6.00,
-                "ntsk_nts_id": 12,
-                "ntsk_bezeichnung": "6.0",
-                "ktrm_updrights": 0,
-                "ntsk_eingabewert": "6",
-                "ntsk_index": 10141,
-                "ntts_ntt_id": 17,
-                "ntsk_id_offset": 10141,
-                "ntsk_ds_id": 2
-            }]
+                "id": 1,
+                "name": 'This',
+                "ignore": false
+            },
+            {
+                "id": 2,
+                "name": 'is',
+                "ignore": false
+            },
+            {
+                "id": 3,
+                "name": 'test',
+                "ignore": false
+            },
+            {
+                "id": 4,
+                "name": 'data',
+                "ignore": false
+            },
+            {
+                "id": 5,
+                "name": 'to',
+                "ignore": false
+            },
+            {
+                "id": 6,
+                "name": 'show',
+                "ignore": false
+            },
+            {
+                "id": 7,
+                "name": 'the',
+                "ignore": false
+            },
+            {
+                "id": 8,
+                "name": 'usage',
+                "ignore": false
+            },
+            {
+                "id": 9,
+                "name": 'of',
+                "ignore": false
+            },
+            {
+                "id": 10,
+                "name": 'the',
+                "ignore": false
+            },
+            {
+                "id": 11,
+                "name": 'autocomplete',
+                "ignore": false
+            },
+            {
+                "id": 12,
+                "name": 'component',
+                "ignore": false
+            },
+            {
+                "id": 13,
+                "name": 'This',
+                "ignore": true
+            },
+            {
+                "id": 14,
+                "name": 'is',
+                "ignore": true
+            },
+            {
+                "id": 15,
+                "name": 'ignored',
+                "ignore": true
+            }
+            ]
         });
     </script>
 </div>
