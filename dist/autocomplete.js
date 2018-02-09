@@ -76,6 +76,7 @@ var RequestBundler = function () {
 
             _classCallCheck(this, Autocomplete);
 
+            this.autoSelect = true;
             // container around the input field
             this.$input = $(element);
             this.$input.addClass('form-control');
@@ -227,8 +228,15 @@ var RequestBundler = function () {
                 this.buildDropdownItems(results);
 
                 if (results && results.length && input) {
-                    this.selected = results[0];
-                    this.$input.val(results[0][this.options.nameProperty]);
+                    if (results.length === 1) {
+                        if (this.autoSelect) {
+                            this.selected = results[0];
+                            this.$input.val(results[0][this.options.nameProperty]);
+                            this.autoSelect = false;
+                        }
+                    } else {
+                        this.autoSelect = true;
+                    }
                 }
                 return results;
             }
