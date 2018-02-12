@@ -33,15 +33,6 @@
             // parse options
             this.parseOptions(options);
 
-            var attr = this.$input.attr("open-on-input")
-
-            if(attr == 'false'){
-                this.options.openOnInput = false
-            }
-            else{
-                this.options.openOnInput = true
-            }
-
             // setup event handlers
             let _this = this;
             this._filterOnHandler = function () {
@@ -128,6 +119,22 @@
                 this.$items.attr('id', id);
                 this.$container.attr('dd-menu', id);
                 this.$items.detach().appendTo('body');
+            }
+
+            var attr = this.$input.attr("open-on-input")
+            if(attr == 'false'){
+                this.options.openOnInput = false
+            }
+            else{
+                this.options.openOnInput = true
+            }
+
+            var attr = this.$input.attr("select-first")
+            if(attr == 'true'){
+                this.options.selectFirstMatch = true
+            }
+            else{
+                this.options.selectFirstMatch = false
             }
         }
 
@@ -229,8 +236,8 @@
             this.buildDropdownItems(results);
 
             if (results && results.length && input) {
-                if(results.length === 1){
-                    if(this.autoSelect) {
+                if(results.length === 1 || this.options.selectFirstMatch){
+                    if(this.autoSelect || this.options.selectFirstMatch) {
                         this.selected = results[0];
                         this.$input.val(results[0][this.options.nameProperty]);
                         this.autoSelect = false;
@@ -333,6 +340,7 @@
         filterOn: 'input',
         openOnInput: true,
         validation: null,
+        selectFirstMatch: false,
         validateOn: 'blur',
         onSelected: null,
         invalidClass: 'invalid',
