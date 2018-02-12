@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Softec.Web.Autocomplete</id>
-    <version></version>
+    <version>0.0.0</version>
     <authors>SOFTEC AG, PD, FB</authors>
     <owners>SOFTEC AG</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
