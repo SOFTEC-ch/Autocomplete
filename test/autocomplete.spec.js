@@ -234,7 +234,7 @@ describe('Autocomplete', function () {
         // fire the input event as if someone was typing
         fireInputEvent($input[0]);
 
-        expect(dropdown).toBeEmpty();
+        expect(dropdown).not.toBeVisible();
     });
 
     it('should hide the menu if clicked outside', function () {
