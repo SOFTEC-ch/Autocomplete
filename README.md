@@ -34,6 +34,7 @@ validation | `function(input, data) { ... }` Function which can be used for cust
 validateOn | Event which will trigger the validation function. Will be attached to the text input field. Default: `blur`
 onSelected | Function that will be called when a value is selected.
 openOnInput | Function which will be called when the input is clicked. Can also be set with the html attribute `open-on-input="true/false"`
+selectFirstMatch | Autocomplete will automatically select the first options - even if there are more options available. Can also be set with: `select-first="true"`.
 invalidClass | Class that will be set on the input, if the validation function does not return `true`. Default: `invalid`
 
 ## Events

@@ -2,12 +2,14 @@
 <package>
   <metadata>
     <id>Softec.Web.Autocomplete</id>
-    <version>1.0.23</version>
+    <version></version>
     <authors>SOFTEC AG, PD, FB</authors>
     <owners>SOFTEC AG</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>JQuery Autocomplete Component</description>
     <releaseNotes>
+    latest:
+        - implement option to force selection of first item
     1.0.23:
         - proposed values are opened when clicking in the input textbox
     1.0.21:
@@ -32,7 +34,7 @@
         - filterOn and validateOn options added
         - initial-value-selected event
     </releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <copyright>Copyright 2018</copyright>
     <tags>jQuery Javascript Autocomplete Dropdown</tags>
     <dependencies>
       <!--<dependency id="jQuery" version="2.0.0" />-->
