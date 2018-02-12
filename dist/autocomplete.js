@@ -103,6 +103,14 @@ var RequestBundler = function () {
             // parse options
             this.parseOptions(options);
 
+            var attr = this.$input.attr("open-on-input");
+
+            if (attr == 'false') {
+                this.options.openOnInput = false;
+            } else {
+                this.options.openOnInput = true;
+            }
+
             // setup event handlers
             var _this = this;
             this._filterOnHandler = function () {
@@ -118,6 +126,10 @@ var RequestBundler = function () {
                         _this.$input.removeClass(_this.options.invalidClass);
                     }
                 }
+            }.bind(this.$input[0]);
+
+            this._onInputHandler = function () {
+                _this.open = true;
             }.bind(this.$input[0]);
 
             this._buttonClickHandler = function () {
@@ -192,6 +204,9 @@ var RequestBundler = function () {
         }, {
             key: 'initializeEventHandlers',
             value: function initializeEventHandlers() {
+                if (this.options.openOnInput) {
+                    this.$input[0].addEventListener('input', this._onInputHandler);
+                }
                 this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].addEventListener('click', this._buttonClickHandler);
@@ -200,6 +215,9 @@ var RequestBundler = function () {
         }, {
             key: 'removeEventHandlers',
             value: function removeEventHandlers() {
+                if (this.options.openOnInput) {
+                    this.$input[0].removeEventListener('input', this._onInputHandler);
+                }
                 this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].removeEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].removeEventListener('click', this._buttonClickHandler);
@@ -403,6 +421,7 @@ var RequestBundler = function () {
             });
         },
         filterOn: 'input',
+        openOnInput: true,
         validation: null,
         validateOn: 'blur',
         onSelected: null,
