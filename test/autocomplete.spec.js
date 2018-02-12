@@ -217,7 +217,7 @@ describe('Autocomplete', function () {
         expect(dropdown).toBeHidden();
     });
 
-    it('should open the menu if something is written in the textbox', function () {
+    it('should not open the menu if something is written in the textbox', function () {
         let $input = $('.test-element-attribute');
         let options = {dataSource: test_dataSource};
         $input.autocomplete(options);
