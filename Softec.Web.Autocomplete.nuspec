@@ -2,29 +2,34 @@
 <package>
   <metadata>
     <id>Softec.Web.Autocomplete</id>
-    <version>1.0.22</version>
-    <authors>SOFTEC AG, PD</authors>
+    <version>1.0.23</version>
+    <authors>SOFTEC AG, PD, FB</authors>
     <owners>SOFTEC AG</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>JQuery Autocomplete Component</description>
     <releaseNotes>
+    1.0.23:
+        - proposed values are opened when clicking in the input textbox
+    1.0.21:
+        - Autocomplete does now only select a proposed value if there is only one matching option available
     1.0.20:
-        - Autocomplete kann implizit ueber das Html initialisiert werden. Folgendes Attribut muss auf dem ELement sein: data-provide="softec-autocomplete"
+        - Autocomplete can be initialized through HTML. The following attribute has to be on the
+          markup: data-provide="softec-autocomplete"
     1.0.19:
-        - onSelected enthält das autocomplete Objekt als Parameter.
+        - add the Autocomplete object as parameter of onSelected
     1.0.18:
-        - Performance beim reinitialisieren verbessert.
+        - performance improvements while reinitializing.
     1.0.17:
-        - Komponente wird mit neuen Optionen reinitialisiert wenn autocomplete ein zweites Mal auf dem selben Element ausgefuehrt wird.
+        - component is reinitialized with new options when Autocomplete is opened a second time on the same element.
     1.0.15:
-        - Fix des request-bundler beim request von verschiedenen URL's.
+        - fix the request-bundler when sending different URL's.
     1.0.14:
-        - Öffnet das dropdown-menu nach oben wenn unter dem Feld zu wenig Platz verfügbar ist.
-        - appendToBody Option
+        - opens the dropdown-menu above if no space is available below
+        - appendToBody option added
     1.0.13:
-        - Performance Verbesserung
+        - performace improvements
     1.0.12:
-        - filterOn and validateOn options hinzugefuegt
+        - filterOn and validateOn options added
         - initial-value-selected event
     </releaseNotes>
     <copyright>Copyright 2017</copyright>

@@ -120,6 +120,10 @@ var RequestBundler = function () {
                 }
             }.bind(this.$input[0]);
 
+            this._onFocusHandler = function () {
+                _this.open = true;
+            }.bind(this.$input[0]);
+
             this._buttonClickHandler = function () {
                 _this.toggleOpen();
             };
@@ -192,6 +196,7 @@ var RequestBundler = function () {
         }, {
             key: 'initializeEventHandlers',
             value: function initializeEventHandlers() {
+                this.$input[0].addEventListener(this.options.onFocus, this._onFocusHandler);
                 this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].addEventListener('click', this._buttonClickHandler);
@@ -200,6 +205,7 @@ var RequestBundler = function () {
         }, {
             key: 'removeEventHandlers',
             value: function removeEventHandlers() {
+                this.$input[0].removeEventListener(this.options.onFocus, this._onFocusHandler);
                 this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].removeEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].removeEventListener('click', this._buttonClickHandler);
@@ -403,6 +409,7 @@ var RequestBundler = function () {
             });
         },
         filterOn: 'input',
+        onFocus: 'click',
         validation: null,
         validateOn: 'blur',
         onSelected: null,

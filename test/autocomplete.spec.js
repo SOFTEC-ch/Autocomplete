@@ -195,6 +195,22 @@ describe('Autocomplete', function () {
         expect(dropdown).toBeHidden();
     });
 
+    it('should open the menu if clicked in the textbox', function () {
+        let $input = $('.test-element');
+        let options = {dataSource: test_dataSource};
+        $('.test-element').autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+
+        $input.click()
+        expect(dropdown).not.toBeEmpty();
+        $('body').click();
+        expect(dropdown).toBeEmpty()
+    });
+
     it('should hide the menu if clicked outside', function () {
         let options = {dataSource: test_dataSource};
         $('.test-element').autocomplete(options);
