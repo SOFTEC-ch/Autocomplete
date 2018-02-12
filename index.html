@@ -31,7 +31,7 @@
         <input type="text" placeholder="Note eingeben..." class="lookup"/>
     </div>
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="lookup"/>
+        <input type="text" placeholder="Note eingeben..." class="lookup" open-on-input="false" />
     </div>
 
     <script type="application/javascript">
@@ -58,6 +58,7 @@
             filter,
             appendToBody: true,
             valueProperty: 'id',
+            openOnInput: true,
             nameProperty: 'name',
             valueField: '#hidden-field',
             dataSource: [{

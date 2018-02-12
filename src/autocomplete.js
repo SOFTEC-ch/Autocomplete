@@ -33,6 +33,15 @@
             // parse options
             this.parseOptions(options);
 
+            var attr = this.$input.attr("open-on-input")
+
+            if(attr == 'false'){
+                this.options.openOnInput = false
+            }
+            else{
+                this.options.openOnInput = true
+            }
+
             // setup event handlers
             let _this = this;
             this._filterOnHandler = function () {
@@ -50,7 +59,7 @@
                 }
             }.bind(this.$input[0]);
 
-            this._onFocusHandler = function () {
+            this._onInputHandler = function () {
                 _this.open = true;
             }.bind(this.$input[0]);
 
@@ -123,7 +132,9 @@
         }
 
         initializeEventHandlers() {
-            this.$input[0].addEventListener(this.options.onFocus, this._onFocusHandler);
+            if(this.options.openOnInput) {
+                this.$input[0].addEventListener('input', this._onInputHandler);
+            }
             this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
             this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
             this.$button[0].addEventListener('click', this._buttonClickHandler);
@@ -131,7 +142,9 @@
         }
 
         removeEventHandlers() {
-            this.$input[0].removeEventListener(this.options.onFocus, this._onFocusHandler);
+            if(this.options.openOnInput) {
+                this.$input[0].removeEventListener('input', this._onInputHandler);
+            }
             this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
             this.$input[0].removeEventListener(this.options.validateOn, this._validateOnHandler);
             this.$button[0].removeEventListener('click', this._buttonClickHandler);
@@ -318,7 +331,7 @@
             return data.filter(x => ~x[this.options.nameProperty].toLowerCase().indexOf(input.toLowerCase()));
         },
         filterOn: 'input',
-        onFocus: 'click',
+        openOnInput: true,
         validation: null,
         validateOn: 'blur',
         onSelected: null,

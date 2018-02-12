@@ -195,7 +195,7 @@ describe('Autocomplete', function () {
         expect(dropdown).toBeHidden();
     });
 
-    it('should open the menu if clicked in the textbox', function () {
+    it('should open the menu if something is written in the textbox', function () {
         let $input = $('.test-element');
         let options = {dataSource: test_dataSource};
         $('.test-element').autocomplete(options);
@@ -205,10 +205,36 @@ describe('Autocomplete', function () {
         expect(dropdown).toBeInDOM();
         expect(dropdown).toBeEmpty();
 
-        $input.click()
+        $input.val('a');
+
+        expect($input.val()).toBe('a')
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
         expect(dropdown).not.toBeEmpty();
         $('body').click();
         expect(dropdown).toBeEmpty()
+    });
+
+    it('should open the menu if clicked in the textbox', function () {
+        let $input = $('.test-element-attribute');
+        let options = {dataSource: test_dataSource};
+        $input.autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+
+        $input.val('a');
+
+        expect($input.val()).toBe('a')
+
+        // fire the input event as if someone was typing
+        fireInputEvent($input[0]);
+
+        expect(dropdown).toBeEmpty();
     });
 
     it('should hide the menu if clicked outside', function () {
