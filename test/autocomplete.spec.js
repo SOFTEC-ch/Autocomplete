@@ -212,12 +212,12 @@ describe('Autocomplete', function () {
         // fire the input event as if someone was typing
         fireInputEvent($input[0]);
 
-        expect(dropdown).not.toBeEmpty();
+        expect(dropdown).toBeVisible();
         $('body').click();
-        expect(dropdown).toBeEmpty()
+        expect(dropdown).toBeHidden();
     });
 
-    it('should open the menu if clicked in the textbox', function () {
+    it('should open the menu if something is written in the textbox', function () {
         let $input = $('.test-element-attribute');
         let options = {dataSource: test_dataSource};
         $input.autocomplete(options);
