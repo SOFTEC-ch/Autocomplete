@@ -29,6 +29,10 @@ interface AutocompleteOptions {
     filterOn?: string;
 
     appendToBody?: boolean;
+
+    openOnInput: boolean;
+
+    selectFirstMatch: boolean;
 }
 
 interface Autocomplete {
