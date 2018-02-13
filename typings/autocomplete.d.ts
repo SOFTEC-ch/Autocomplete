@@ -22,7 +22,7 @@ interface AutocompleteOptions {
 
     valueField?: string | JQuery;
 
-    invalidClass?: string;
+    invalidClass?: string
 
     validateOn?: string;
 
