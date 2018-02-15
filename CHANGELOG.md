@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.0.58] - 2018-02-1
+## [1.0.59] - 2018-02-15
+### Added
+- Support possibility to add validation function to autocomplete per html attribute
+
+## [1.0.58] - 2018-02-13
 ### Added
 - Typescript support for new autocomplete features
 
