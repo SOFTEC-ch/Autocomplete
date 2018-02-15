@@ -33,6 +33,9 @@
     <div class="col-md-2">
         <input type="text" placeholder="Note eingeben..." class="lookup" open-on-input="false" />
     </div>
+    <div class="col-md-2">
+        <input type="text" placeholder="Note eingeben..." class="lookup" validation-function="validationMsg(input, data)" />
+    </div>
 
     <script type="application/javascript">
 
@@ -138,7 +141,17 @@
             }
             ]
         });
-    </script>
+</script>
+<script>
+
+    function validationMsg(input, data)
+    {
+        if(input == 'asdf')
+        {
+            alert("its asdf")
+        }
+    }
+</script>
 </div>
 </body>
 </html>
