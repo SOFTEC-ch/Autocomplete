@@ -208,7 +208,7 @@ var RequestBundler = function () {
                     this.options.selectFirstMatch = false;
                 }
 
-                var validation = this.$input.attr("validation-function");
+                var validation = this.$input.attr("validation");
                 if (validation) {
                     this.options.validation = new Function("input", "data", validation);
                 }

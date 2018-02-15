@@ -136,7 +136,7 @@
                 this.options.selectFirstMatch = false
             }
 
-            let validation = this.$input.attr("validation-function")
+            const validation = this.$input.attr("validation")
             if(validation){
                 this.options.validation = new Function("input", "data", validation);
             }
