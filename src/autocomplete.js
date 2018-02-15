@@ -98,10 +98,9 @@
         parseOptions(options) {
             this.options = $.extend({}, this.options, options);
 
-            if (this.options.validation)
-                this.options.validation = this.options.validation.bind(this);
-            if (this.options.filter)
+            if (this.options.filter) {
                 this.options.filter = this.options.filter.bind(this);
+            }
 
             if (this.$input.data('value-field')) {
                 this.$valueField = $(this.$input.data('value-field'));
@@ -135,6 +134,15 @@
             }
             else{
                 this.options.selectFirstMatch = false
+            }
+
+            const validation = this.$input.attr("validation")
+            if(validation){
+                this.options.validation = new Function("input", "data", validation);
+            }
+
+            if (this.options.validation){
+                this.options.validation = this.options.validation.bind(this);
             }
         }
 

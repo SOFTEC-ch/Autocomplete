@@ -1,5 +1,8 @@
 'use strict';
 
+// global validation spy for markup
+const validationSpy = jasmine.createSpy("validation spy");
+
 describe('Autocomplete', function () {
     var $ = jQuery;
 
@@ -607,5 +610,23 @@ describe('Autocomplete', function () {
         // fire the events
         fireInputEvent($input[0]);
         expect(validationFunc).toHaveBeenCalled();
+    });
+
+    it('should have a validation function which can be passed through the markup attribute', function () {
+        let options = {dataSource: test_dataSource};
+        let $input = $('.test-select-validation')
+        $input.autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(dropdown).toBeInDOM();
+        expect(dropdown).toBeEmpty();
+
+        // fire the events
+        fireInputEvent($input[0]);
+        // fire the events
+        fireBlurEvent($input[0]);
+
+        expect(validationSpy).toHaveBeenCalled();
     });
 });

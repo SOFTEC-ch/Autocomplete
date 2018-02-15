@@ -172,8 +172,9 @@ var RequestBundler = function () {
             value: function parseOptions(options) {
                 this.options = $.extend({}, this.options, options);
 
-                if (this.options.validation) this.options.validation = this.options.validation.bind(this);
-                if (this.options.filter) this.options.filter = this.options.filter.bind(this);
+                if (this.options.filter) {
+                    this.options.filter = this.options.filter.bind(this);
+                }
 
                 if (this.$input.data('value-field')) {
                     this.$valueField = $(this.$input.data('value-field'));
@@ -205,6 +206,15 @@ var RequestBundler = function () {
                     this.options.selectFirstMatch = true;
                 } else {
                     this.options.selectFirstMatch = false;
+                }
+
+                var validation = this.$input.attr("validation");
+                if (validation) {
+                    this.options.validation = new Function("input", "data", validation);
+                }
+
+                if (this.options.validation) {
+                    this.options.validation = this.options.validation.bind(this);
                 }
             }
         }, {

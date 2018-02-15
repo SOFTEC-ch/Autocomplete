@@ -30,7 +30,7 @@ valueProperty | The property that will be used as the value. Default: `value`
 valueField | Can be either a selector or an element. Specified elements will get their value set to the value of the selected element (specified by the `valueProperty` option).
 filter | `function(input, data) { ... }` Function which will be used to filter the items. `input` contains the input value. `data` contains the object retrieved by the dataSource.
 filterOn | Event which will trigger the filter function. Will be attached to the text input field. Default: `input`
-validation | `function(input, data) { ... }` Function which can be used for custom validations. Has to return `true` if value is valid, otherwise the input field will be marked as invalid.
+validation | `function(input, data) { ... }` Function which can be used for custom validations. Has to return `true` if value is valid, otherwise the input field will be marked as invalid. Can also be set with the attribute `validation-function="MyJavaScriptFunction(input, data)"` and this function has to be defined by yourself
 validateOn | Event which will trigger the validation function. Will be attached to the text input field. Default: `blur`
 onSelected | Function that will be called when a value is selected.
 openOnInput | Function which will be called when the input is clicked. Can also be set with the html attribute `open-on-input="true/false"`
