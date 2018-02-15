@@ -1,7 +1,7 @@
 'use strict';
 
 // global validation spy for markup
-var validationMsg = jasmine.createSpy("validation spy");
+const validationSpy = jasmine.createSpy("validation spy");
 
 describe('Autocomplete', function () {
     var $ = jQuery;
@@ -627,6 +627,6 @@ describe('Autocomplete', function () {
         // fire the events
         fireBlurEvent($input[0]);
 
-        expect(validationMsg).toHaveBeenCalled();
+        expect(validationSpy).toHaveBeenCalled();
     });
 });
