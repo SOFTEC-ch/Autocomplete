@@ -36,6 +36,7 @@ onSelected | Function that will be called when a value is selected.
 openOnInput | Function which will be called when the input is clicked. Can also be set with the html attribute `open-on-input="true/false"`
 selectFirstMatch | Autocomplete will automatically select the first options - even if there are more options available. Can also be set with: `select-first="true"`.
 invalidClass | Class that will be set on the input, if the validation function does not return `true`. Default: `invalid`
+preAppendDataItem | `function(li, item)` Function which allows you to manipulate the DOM element. `li` is the DOM element and `item` is the item from the datasource. Can also be set with the html attribute `pre-append="preAppendDataItem(li, item)"`
 
 ## Events
 Name | Description

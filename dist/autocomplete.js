@@ -109,8 +109,17 @@ var RequestBundler = function () {
                 _this.search(this.value);
             }.bind(this.$input[0]);
 
+            this._onKeyDown = function (e) {
+
+                var $active = $(document.activeElement);
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == 9) {
+                    _this.open = false;
+                }
+            }.bind(this.$input[0]);
+
             this._validateOnHandler = function () {
-                _this.open = false;
+                //_this.open = false;
                 if (_this.options.validation) {
                     if (!_this.options.validation(_this.$input.val(), _this.data) && _this.options.invalidClass) {
                         _this.$input.addClass(_this.options.invalidClass);
@@ -208,6 +217,15 @@ var RequestBundler = function () {
                     this.options.selectFirstMatch = false;
                 }
 
+                var preAppendDataItem = this.$input.attr("pre-append");
+                if (preAppendDataItem) {
+                    this.options.preAppendDataItem = new Function("li", "item", preAppendDataItem);
+                }
+
+                if (this.options.preAppendDataItem) {
+                    this.options.preAppendDataItem = this.options.preAppendDataItem.bind(this);
+                }
+
                 var validation = this.$input.attr("validation");
                 if (validation) {
                     this.options.validation = new Function("input", "data", validation);
@@ -223,6 +241,7 @@ var RequestBundler = function () {
                 if (this.options.openOnInput) {
                     this.$input[0].addEventListener('input', this._onInputHandler);
                 }
+                this.$input[0].addEventListener('keydown', this._onKeyDown);
                 this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].addEventListener('click', this._buttonClickHandler);
@@ -234,6 +253,7 @@ var RequestBundler = function () {
                 if (this.options.openOnInput) {
                     this.$input[0].removeEventListener('input', this._onInputHandler);
                 }
+                this.$input[0].removeEventListener('keydown', this._onKeyDown);
                 this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].removeEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].removeEventListener('click', this._buttonClickHandler);
@@ -277,6 +297,8 @@ var RequestBundler = function () {
         }, {
             key: 'buildDropdownItems',
             value: function buildDropdownItems(dataItems) {
+                var _this4 = this;
+
                 if (!dataItems || !dataItems.length) return;
 
                 var _this = this;
@@ -290,6 +312,9 @@ var RequestBundler = function () {
                         _this.selected = x;
                         _this.open = false;
                     });
+                    if (_this4.options.preAppendDataItem) {
+                        _this4.options.preAppendDataItem(li, x);
+                    }
                     _this.$items.append(li);
                 });
             }
@@ -387,7 +412,7 @@ var RequestBundler = function () {
                 return this.$container.data('selected');
             },
             set: function set(value) {
-                var _this4 = this;
+                var _this5 = this;
 
                 // reflect the value of the selected property as an HTML attribute
                 if (!value) {
@@ -399,7 +424,7 @@ var RequestBundler = function () {
                         value = +value; // if value is a string we try to convert it to a number, otherwise we leave it as a string
                     }
                     var elem = this.data.filter(function (x) {
-                        return x[_this4.options.valueProperty] === value;
+                        return x[_this5.options.valueProperty] === value;
                     });
                     if (elem && elem.length && elem[0]) {
                         value = elem[0];
@@ -430,14 +455,15 @@ var RequestBundler = function () {
         valueField: null,
         dataSource: null,
         filter: function filter(input, data) {
-            var _this5 = this;
+            var _this6 = this;
 
             return data.filter(function (x) {
-                return ~x[_this5.options.nameProperty].toLowerCase().indexOf(input.toLowerCase());
+                return ~x[_this6.options.nameProperty].toLowerCase().indexOf(input.toLowerCase());
             });
         },
         filterOn: 'input',
         openOnInput: true,
+        preAppendDataItem: null,
         validation: null,
         selectFirstMatch: false,
         validateOn: 'blur',

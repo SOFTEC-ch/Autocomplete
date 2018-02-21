@@ -29,6 +29,13 @@ describe('Autocomplete', function () {
         element.dispatchEvent(evt);
     };
 
+    const keyPress = (element, key) => {
+        var event = document.createEvent('HTMLEvents');
+        event.keyCode = key;
+        event.initEvent('keydown');
+        element.dispatchEvent(event);
+    }
+
     // inject the HTML fixture for the tests
     beforeEach(function () {
         loadFixtures('autocomplete-fixture.html');
@@ -157,6 +164,7 @@ describe('Autocomplete', function () {
 
     it('should be possible to delete a character from the input when a autoselection happend before', function () {
         let $input = $('.test-element');
+        let $inputAttribute = $('.test-element-attribute');
         let options = {dataSource: test_dataSource};
         $('.test-element').autocomplete(options);
 
@@ -189,8 +197,9 @@ describe('Autocomplete', function () {
 
         // fire the input event as if someone was typing
         fireInputEvent($input[0]);
+
         // loose focus
-        fireBlurEvent($input[0]);
+        keyPress($input[0], 9)
 
         expect($input.val()).toBe('asd')
 

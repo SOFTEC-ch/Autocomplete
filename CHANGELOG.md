@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.61] - 2018-02-21
+### Added
+- Add preAppendDataItem / `function(li, item)` to manipulate the list item regarding `item` values.
+
 ## [1.0.59] - 2018-02-15
 ### Added
 - Support possibility to add validation function to autocomplete per html attribute

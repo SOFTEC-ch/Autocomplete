@@ -20,6 +20,10 @@
         max-height: 300px;
         overflow-y: auto;
     }
+
+    .test{
+        background-color:lime;
+    }
 </style>
 <body>
 <div class="row">
@@ -35,6 +39,9 @@
     </div>
     <div class="col-md-2">
         <input type="text" placeholder="Note eingeben..." class="lookup" validation-function="validationMsg(input, data)" />
+    </div>
+    <div class="col-md-2">
+        <input type="text" placeholder="Note eingeben..." class="lookup" pre-append="preAppendDataItem(li, item)" />
     </div>
 
     <script type="application/javascript">
@@ -55,6 +62,21 @@
                 return true;
             }
         };
+
+        function preAppendDataItem(li, item) {
+            if(item.name == 'is'){
+                $(li).addClass("test")
+            }
+        }
+
+        function validationMsg(input, data)
+        {
+            if(input == 'asdf')
+            {
+                alert("its asdf")
+            }
+        }
+
 
         $('.lookup').autocomplete({
             validation,
@@ -142,13 +164,7 @@
             ]
         });
 
-        function validationMsg(input, data)
-        {
-            if(input == 'asdf')
-            {
-                alert("its asdf")
-            }
-        }
+
     </script>
 </div>
 </body>
