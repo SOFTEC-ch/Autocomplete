@@ -2,6 +2,7 @@
 
 // global validation spy for markup
 const validationSpy = jasmine.createSpy("validation spy");
+const preAppendSpy = jasmine.createSpy("pre append spy");
 
 describe('Autocomplete', function () {
     var $ = jQuery;
@@ -637,5 +638,24 @@ describe('Autocomplete', function () {
         fireBlurEvent($input[0]);
 
         expect(validationSpy).toHaveBeenCalled();
+    });
+
+    it('should have a pre append function which can be passed through the markup attribute', function () {
+        let $input = $('.test-select-pre-append')
+        let options = {dataSource: test_dataSource};
+        $input.autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+        let dropdownBtn = $('.autocomplete button.btn.btn-default');
+
+        dropdownBtn.click();
+        dropdownBtn.focus();
+
+        expect(dropdown).toBeVisible();
+        expect(dropdown).toBeInDOM()
+        dropdownBtn.click();
+
+        // expect(preAppendSpy).toHaveBeenCalled();
+        expect(preAppendSpy.calls.count()).toBe(4);
     });
 });

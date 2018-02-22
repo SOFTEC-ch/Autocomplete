@@ -110,8 +110,6 @@ var RequestBundler = function () {
             }.bind(this.$input[0]);
 
             this._onKeyDown = function (e) {
-
-                var $active = $(document.activeElement);
                 var keyCode = e.keyCode || e.which;
                 if (keyCode == 9) {
                     _this.open = false;
@@ -119,7 +117,6 @@ var RequestBundler = function () {
             }.bind(this.$input[0]);
 
             this._validateOnHandler = function () {
-                //_this.open = false;
                 if (_this.options.validation) {
                     if (!_this.options.validation(_this.$input.val(), _this.data) && _this.options.invalidClass) {
                         _this.$input.addClass(_this.options.invalidClass);
