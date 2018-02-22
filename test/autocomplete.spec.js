@@ -2,6 +2,7 @@
 
 // global validation spy for markup
 const validationSpy = jasmine.createSpy("validation spy");
+const preAppendSpy = jasmine.createSpy("pre append spy");
 
 describe('Autocomplete', function () {
     var $ = jQuery;
@@ -28,6 +29,13 @@ describe('Autocomplete', function () {
         evt.initEvent(eventName, false, true);
         element.dispatchEvent(evt);
     };
+
+    const keyPress = (element, key) => {
+        var event = document.createEvent('HTMLEvents');
+        event.keyCode = key;
+        event.initEvent('keydown');
+        element.dispatchEvent(event);
+    }
 
     // inject the HTML fixture for the tests
     beforeEach(function () {
@@ -157,6 +165,7 @@ describe('Autocomplete', function () {
 
     it('should be possible to delete a character from the input when a autoselection happend before', function () {
         let $input = $('.test-element');
+        let $inputAttribute = $('.test-element-attribute');
         let options = {dataSource: test_dataSource};
         $('.test-element').autocomplete(options);
 
@@ -189,8 +198,9 @@ describe('Autocomplete', function () {
 
         // fire the input event as if someone was typing
         fireInputEvent($input[0]);
+
         // loose focus
-        fireBlurEvent($input[0]);
+        keyPress($input[0], 9)
 
         expect($input.val()).toBe('asd')
 
@@ -628,5 +638,24 @@ describe('Autocomplete', function () {
         fireBlurEvent($input[0]);
 
         expect(validationSpy).toHaveBeenCalled();
+    });
+
+    it('should have a pre append function which can be passed through the markup attribute', function () {
+        let $input = $('.test-select-pre-append')
+        let options = {dataSource: test_dataSource};
+        $input.autocomplete(options);
+
+        let dropdown = $('.autocomplete > ul.items.dropdown-menu');
+        let dropdownBtn = $('.autocomplete button.btn.btn-default');
+
+        dropdownBtn.click();
+        dropdownBtn.focus();
+
+        expect(dropdown).toBeVisible();
+        expect(dropdown).toBeInDOM()
+        dropdownBtn.click();
+
+        expect(preAppendSpy).toHaveBeenCalled();
+        expect(preAppendSpy.calls.count()).toBe(4);
     });
 });

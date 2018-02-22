@@ -39,8 +39,14 @@
                 _this.search(this.value);
             }.bind(this.$input[0]);
 
+            this._onKeyDown = function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == 9) {
+                    _this.open = false;
+                }
+            }.bind(this.$input[0]);
+
             this._validateOnHandler = function () {
-                _this.open = false;
                 if (_this.options.validation) {
                     if (!_this.options.validation(_this.$input.val(), _this.data) && _this.options.invalidClass) {
                         _this.$input.addClass(_this.options.invalidClass);
@@ -136,6 +142,15 @@
                 this.options.selectFirstMatch = false
             }
 
+            const preAppendDataItem = this.$input.attr("pre-append")
+            if(preAppendDataItem){
+                this.options.preAppendDataItem = new Function("li", "item", preAppendDataItem);
+            }
+
+            if (this.options.preAppendDataItem){
+                this.options.preAppendDataItem = this.options.preAppendDataItem.bind(this);
+            }
+
             const validation = this.$input.attr("validation")
             if(validation){
                 this.options.validation = new Function("input", "data", validation);
@@ -150,6 +165,7 @@
             if(this.options.openOnInput) {
                 this.$input[0].addEventListener('input', this._onInputHandler);
             }
+            this.$input[0].addEventListener('keydown', this._onKeyDown);
             this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
             this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
             this.$button[0].addEventListener('click', this._buttonClickHandler);
@@ -160,6 +176,7 @@
             if(this.options.openOnInput) {
                 this.$input[0].removeEventListener('input', this._onInputHandler);
             }
+            this.$input[0].removeEventListener('keydown', this._onKeyDown);
             this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
             this.$input[0].removeEventListener(this.options.validateOn, this._validateOnHandler);
             this.$button[0].removeEventListener('click', this._buttonClickHandler);
@@ -273,6 +290,10 @@
                     _this.selected = x;
                     _this.open = false;
                 });
+                if (this.options.preAppendDataItem)
+                {
+                    this.options.preAppendDataItem(li, x);
+                }
                 _this.$items.append(li);
             });
         }
@@ -347,6 +368,7 @@
         },
         filterOn: 'input',
         openOnInput: true,
+        preAppendDataItem: null,
         validation: null,
         selectFirstMatch: false,
         validateOn: 'blur',
