@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add preAppendDataItem / `function(li, item)` to manipulate the list item regarding `item` values.
 
 ### Fixed
-- Click on DropDownItem after filter a filter was already applied
+- Click on DropDownItem after filter a filter was already applied #9
 
 ## [1.0.59] - 2018-02-15
 
