@@ -655,7 +655,7 @@ describe('Autocomplete', function () {
         expect(dropdown).toBeInDOM()
         dropdownBtn.click();
 
-        // expect(preAppendSpy).toHaveBeenCalled();
+        expect(preAppendSpy).toHaveBeenCalled();
         expect(preAppendSpy.calls.count()).toBe(4);
     });
 });
