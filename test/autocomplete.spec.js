@@ -652,10 +652,38 @@ describe('Autocomplete', function () {
         dropdownBtn.focus();
 
         expect(dropdown).toBeVisible();
-        expect(dropdown).toBeInDOM()
+        expect(dropdown).toBeInDOM();
         dropdownBtn.click();
 
         expect(preAppendSpy).toHaveBeenCalled();
         expect(preAppendSpy.calls.count()).toBe(4);
+    });
+
+    it('should be possible to select multiple different values in sequence', function () {
+        const $input = $('.test-element');
+        const filterFunc = jasmine.createSpy("filter() spy").and.callFake((input, data) => data.filter(x => ~x.name.indexOf(input)));
+        const dataSource = [
+            {value: 1234, name: 'asdf'},
+            {value: 5678, name: 'ghjk'},
+            {value: 9999, name: 'xxxx'},
+            {value: 9998, name: 'addd'}];
+
+        $input.autocomplete({
+            dataSource: dataSource,
+            filter: filterFunc
+        });
+
+        const testFunc = (input, index) => {
+            $input.val(input);
+            fireInputEvent($input[0]);
+            fireBlurEvent($input[0]);
+
+            expect($input.data('autocomplete').selected).toEqual(dataSource[index]);
+        };
+
+        testFunc('asd', 0);
+        testFunc('xxx', 2);
+        testFunc('ghj', 1);
+        testFunc('ad', 3);
     });
 });
