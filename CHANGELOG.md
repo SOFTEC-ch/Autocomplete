@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.62] - 2018-03-01
+
+### Fixed
+- Fixed an issue where, after selecting an item, no other item could be selected.
+
 ## [1.0.61] - 2018-02-21
 
 ### Added
