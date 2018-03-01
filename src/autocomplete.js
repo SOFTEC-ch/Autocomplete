@@ -70,6 +70,10 @@
                 }
             };
 
+            this._onBlurHandler = function () {
+                _this.autoSelect = true;
+            };
+
             // initialize event handlers
             this.initializeEventHandlers();
 
@@ -126,7 +130,7 @@
                 this.$items.detach().appendTo('body');
             }
 
-            var attr = this.$input.attr("open-on-input")
+            var attr = this.$input.attr("open-on-input");
             if(attr == 'false'){
                 this.options.openOnInput = false
             }
@@ -134,7 +138,7 @@
                 this.options.openOnInput = true
             }
 
-            var attr = this.$input.attr("select-first")
+            var attr = this.$input.attr("select-first");
             if(attr == 'true'){
                 this.options.selectFirstMatch = true
             }
@@ -142,7 +146,7 @@
                 this.options.selectFirstMatch = false
             }
 
-            const preAppendDataItem = this.$input.attr("pre-append")
+            const preAppendDataItem = this.$input.attr("pre-append");
             if(preAppendDataItem){
                 this.options.preAppendDataItem = new Function("li", "item", preAppendDataItem);
             }
@@ -151,7 +155,7 @@
                 this.options.preAppendDataItem = this.options.preAppendDataItem.bind(this);
             }
 
-            const validation = this.$input.attr("validation")
+            const validation = this.$input.attr("validation");
             if(validation){
                 this.options.validation = new Function("input", "data", validation);
             }
@@ -166,6 +170,7 @@
                 this.$input[0].addEventListener('input', this._onInputHandler);
             }
             this.$input[0].addEventListener('keydown', this._onKeyDown);
+            this.$input[0].addEventListener('blur', this._onBlurHandler);
             this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
             this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
             this.$button[0].addEventListener('click', this._buttonClickHandler);

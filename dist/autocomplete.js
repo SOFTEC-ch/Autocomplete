@@ -141,6 +141,10 @@ var RequestBundler = function () {
                 }
             };
 
+            this._onBlurHandler = function () {
+                _this.autoSelect = true;
+            };
+
             // initialize event handlers
             this.initializeEventHandlers();
 
@@ -239,6 +243,7 @@ var RequestBundler = function () {
                     this.$input[0].addEventListener('input', this._onInputHandler);
                 }
                 this.$input[0].addEventListener('keydown', this._onKeyDown);
+                this.$input[0].addEventListener('blur', this._onBlurHandler);
                 this.$input[0].addEventListener(this.options.filterOn, this._filterOnHandler);
                 this.$input[0].addEventListener(this.options.validateOn, this._validateOnHandler);
                 this.$button[0].addEventListener('click', this._buttonClickHandler);

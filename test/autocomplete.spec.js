@@ -641,7 +641,7 @@ describe('Autocomplete', function () {
     });
 
     it('should have a pre append function which can be passed through the markup attribute', function () {
-        let $input = $('.test-select-pre-append')
+        let $input = $('.test-select-pre-append');
         let options = {dataSource: test_dataSource};
         $input.autocomplete(options);
 
