@@ -120,8 +120,8 @@
                 this.$valueField = this.options.valueField;
             }
 
-            if (this.$input.data('appendToBody')) {
-                this.options.appendToBody = !!this.$input.data('appendToBody');
+            if (this.$input.data('append-to-body')) {
+                this.options.appendToBody = !!this.$input.data('append-to-body');
             }
             if (this.options.appendToBody) {
                 let id = '' + (10000 * Math.random() * new Date().getTime() * window.outerHeight);
