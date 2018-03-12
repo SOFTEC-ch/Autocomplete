@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.63] - 2018-03-12
+
+### Fixed
+- Changed the `data-appendToBody` attribute to `data-append-to-body` in order to be conform with the [HTML specification](https://www.w3.org/TR/2011/WD-html5-20110525/elements.html#embedding-custom-non-visible-data-with-the-data-attributes) (no uppercase letters).
+
 ## [1.0.62] - 2018-03-01
 
 ### Fixed
