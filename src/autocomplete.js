@@ -160,6 +160,11 @@
                 this.options.validation = new Function("input", "data", validation);
             }
 
+            const invalidClassAttr = this.$input.data("invalid-class");
+            if (invalidClassAttr) {
+                this.options.invalidClass = invalidClassAttr;
+            }
+
             if (this.options.validation){
                 this.options.validation = this.options.validation.bind(this);
             }

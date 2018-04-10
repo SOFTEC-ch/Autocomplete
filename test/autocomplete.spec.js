@@ -686,4 +686,43 @@ describe('Autocomplete', function () {
         testFunc('ghj', 1);
         testFunc('ad', 3);
     });
+
+    it('should set the provided invalid class', function () {
+        let $input = $('.test-element');
+
+        const TEST_INVALID_CLASS = 'TEST_INVALID_CLASS';
+        $input.attr('data-invalid-class', TEST_INVALID_CLASS);
+        expect($input).toHaveAttr('data-invalid-class');
+
+        let isValid = false;
+
+        let validationFunc = jasmine.createSpy("validationFunc() spy").and.callFake(() => isValid);
+        let options = {
+            dataSource: test_dataSource,
+            validation: validationFunc,
+            validateOn: 'input'
+        };
+
+        $input.autocomplete(options);
+        $input.val(test_dataSource[1].name);
+
+        expect($input).not.toHaveClass(TEST_INVALID_CLASS);
+
+        // fire the events
+        fireBlurEvent($input[0]);
+        expect(validationFunc).not.toHaveBeenCalled();
+        fireInputEvent($input[0]);
+        expect(validationFunc).toHaveBeenCalled();
+
+        expect($input).toHaveClass(TEST_INVALID_CLASS);
+
+        isValid = true;
+
+        // fire the events
+        fireBlurEvent($input[0]);
+        fireInputEvent($input[0]);
+        expect(validationFunc).toHaveBeenCalled();
+
+        expect($input).not.toHaveClass(TEST_INVALID_CLASS);
+    });
 });

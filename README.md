@@ -4,23 +4,43 @@
 ![dependencies status](https://david-dm.org/SOFTEC-ch/Autocomplete.svg)
 
 Run these commands from the command-line.
-#### Dependencies
-```
+
+## Dependencies
+
+```shell
 npm install
 bower install
 ```
 
-#### Build
-```
+## Build
+
+```shell
 gulp default
 ```
 
-#### Unit Tests
-```
+## Unit Tests
+
+```shell
 karma start --single-run
 ```
 
+## Usage
+
+In code:
+
+```js
+const options = { dataSource: 'https://localhost:3000/my-awesome-datasource' };
+$('input.my-autocomplete').autocomplete(options);
+```
+
+or in markup:
+
+```html
+<input data-provide="softec-autocomplete" data-source="https://localhost:3000/my-awesome-datasource">
+```
+
 ## Options
+
 Name | Description
 --- | ---
 appendToBody | If `true`, the dropdown-menu will be appended to the HTML body element, instead of inside the autocomplete container. Default: `false`
@@ -38,7 +58,15 @@ selectFirstMatch | Autocomplete will automatically select the first options - ev
 invalidClass | Class that will be set on the input, if the validation function does not return `true`. Default: `invalid`
 preAppendDataItem | `function(li, item)` Function which allows you to manipulate the DOM element. `li` is the DOM element to be inserted as dropdownitem and `item` is the element from the datasource. Can also be set with the html attribute `pre-append="preAppendDataItem(li, item)"`
 
+Some options can be set in markup:
+
+* data-source
+* data-invalid-class
+* data-value-field
+* validation
+
 ## Events
+
 Name | Description
 --- | ---
 initial-value-selected | Will be triggered as soon as the initial value is selected. Initial value is optionally provided by the referenced `valueField`. The value will only be selected if the `dataSource` contains a corresponding element.
