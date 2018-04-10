@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.64] - 2018-04-10
+
+### Added
+- invalidClass can be set in html markup (e.g. data-invalid-class="notvalid").
+
 ## [1.0.63] - 2018-03-12
 
 ### Fixed

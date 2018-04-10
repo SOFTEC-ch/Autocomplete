@@ -194,8 +194,8 @@ var RequestBundler = function () {
                     this.$valueField = this.options.valueField;
                 }
 
-                if (this.$input.data('appendToBody')) {
-                    this.options.appendToBody = !!this.$input.data('appendToBody');
+                if (this.$input.data('append-to-body')) {
+                    this.options.appendToBody = !!this.$input.data('append-to-body');
                 }
                 if (this.options.appendToBody) {
                     var id = '' + 10000 * Math.random() * new Date().getTime() * window.outerHeight;
@@ -230,6 +230,11 @@ var RequestBundler = function () {
                 var validation = this.$input.attr("validation");
                 if (validation) {
                     this.options.validation = new Function("input", "data", validation);
+                }
+
+                var invalidClassAttr = this.$input.data("invalid-class");
+                if (invalidClassAttr) {
+                    this.options.invalidClass = invalidClassAttr;
                 }
 
                 if (this.options.validation) {
