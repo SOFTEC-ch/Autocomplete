@@ -1,8 +1,8 @@
 'use strict';
 
 // global validation spy for markup
-const validationSpy = jasmine.createSpy("validation spy");
-const preAppendSpy = jasmine.createSpy("pre append spy");
+let validationSpy;
+let preAppendSpy;
 
 describe('Autocomplete', function () {
     var $ = jQuery;
@@ -40,6 +40,8 @@ describe('Autocomplete', function () {
     // inject the HTML fixture for the tests
     beforeEach(function () {
         loadFixtures('autocomplete-fixture.html');
+        validationSpy = jasmine.createSpy("validation spy");
+        preAppendSpy = jasmine.createSpy("pre append spy");
     });
 
     // remove the html fixture from the DOM
@@ -217,7 +219,6 @@ describe('Autocomplete', function () {
         $('.autocomplete button.btn.btn-default').click();
         expect(dropdown).toBeVisible();
     });
-
 
     it('should select dropdown item on click and hide the menu', function () {
         let options = {dataSource: test_dataSource};
@@ -638,6 +639,36 @@ describe('Autocomplete', function () {
         fireBlurEvent($input[0]);
 
         expect(validationSpy).toHaveBeenCalled();
+    });
+
+    it('should call markup validation, mark the input as invalid and remove the class if it is no longer invalid', function () {
+        expect(validationSpy).not.toHaveBeenCalled();
+
+        const TEST_INVALID_CLASS = 'TEST_INVALID';
+
+        let isValid = false;
+        validationSpy.and.callFake(() => isValid);
+
+        let options = {dataSource: test_dataSource};
+        const $input = $('.test-select-validation');
+        $input.attr('data-invalid-class', TEST_INVALID_CLASS);
+
+        $input.autocomplete(options);
+
+        // fire the events like they would normally
+        fireInputEvent($input[0]);
+        fireBlurEvent($input[0]);
+
+        expect(validationSpy).toHaveBeenCalled();
+        expect($input).toHaveClass(TEST_INVALID_CLASS);
+
+        isValid = true;
+
+        // fire the events like they would normally
+        fireInputEvent($input[0]);
+        fireBlurEvent($input[0]);
+
+        expect($input).not.toHaveClass(TEST_INVALID_CLASS);
     });
 
     it('should have a pre append function which can be passed through the markup attribute', function () {
