@@ -131,32 +131,32 @@
             }
 
             var attr = this.$input.attr("open-on-input");
-            if(attr == 'false'){
+            if (attr == 'false') {
                 this.options.openOnInput = false
             }
-            else{
+            else {
                 this.options.openOnInput = true
             }
 
             var attr = this.$input.attr("select-first");
-            if(attr == 'true'){
+            if (attr == 'true') {
                 this.options.selectFirstMatch = true
             }
-            else{
+            else {
                 this.options.selectFirstMatch = false
             }
 
             const preAppendDataItem = this.$input.attr("pre-append");
-            if(preAppendDataItem){
+            if (preAppendDataItem) {
                 this.options.preAppendDataItem = new Function("li", "item", preAppendDataItem);
             }
 
-            if (this.options.preAppendDataItem){
+            if (this.options.preAppendDataItem) {
                 this.options.preAppendDataItem = this.options.preAppendDataItem.bind(this);
             }
 
             const validation = this.$input.attr("validation");
-            if(validation){
+            if (validation) {
                 this.options.validation = new Function("input", "data", validation);
             }
 
@@ -165,13 +165,13 @@
                 this.options.invalidClass = invalidClassAttr;
             }
 
-            if (this.options.validation){
+            if (this.options.validation) {
                 this.options.validation = this.options.validation.bind(this);
             }
         }
 
         initializeEventHandlers() {
-            if(this.options.openOnInput) {
+            if (this.options.openOnInput) {
                 this.$input[0].addEventListener('input', this._onInputHandler);
             }
             this.$input[0].addEventListener('keydown', this._onKeyDown);
@@ -183,7 +183,7 @@
         }
 
         removeEventHandlers() {
-            if(this.options.openOnInput) {
+            if (this.options.openOnInput) {
                 this.$input[0].removeEventListener('input', this._onInputHandler);
             }
             this.$input[0].removeEventListener('keydown', this._onKeyDown);
@@ -271,8 +271,8 @@
             this.buildDropdownItems(results);
 
             if (results && results.length && input) {
-                if(results.length === 1 || this.options.selectFirstMatch){
-                    if(this.autoSelect || this.options.selectFirstMatch) {
+                if (results.length === 1 || this.options.selectFirstMatch) {
+                    if (this.autoSelect || this.options.selectFirstMatch) {
                         this.selected = results[0];
                         this.$input.val(results[0][this.options.nameProperty]);
                         this.autoSelect = false;
@@ -300,8 +300,7 @@
                     _this.selected = x;
                     _this.open = false;
                 });
-                if (this.options.preAppendDataItem)
-                {
+                if (this.options.preAppendDataItem) {
                     this.options.preAppendDataItem(li, x);
                 }
                 _this.$items.append(li);
