@@ -157,7 +157,7 @@
 
             const validation = this.$input.attr("validation");
             if (validation) {
-                this.options.validation = new Function("input", "data", validation);
+                this.options.validation = (input, data) => eval(validation);
             }
 
             const invalidClassAttr = this.$input.data("invalid-class");

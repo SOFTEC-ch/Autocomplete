@@ -229,7 +229,9 @@ var RequestBundler = function () {
 
                 var validation = this.$input.attr("validation");
                 if (validation) {
-                    this.options.validation = new Function("input", "data", validation);
+                    this.options.validation = function (input, data) {
+                        return eval(validation);
+                    };
                 }
 
                 var invalidClassAttr = this.$input.data("invalid-class");
