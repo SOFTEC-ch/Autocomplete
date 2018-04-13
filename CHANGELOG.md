@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.66] - 2018-04-13
+
+### Fix
+- remove the invalid class after an element has been selected from the dropdown menu
+
 ## [1.0.65] - 2018-04-11
 
 ### Fix

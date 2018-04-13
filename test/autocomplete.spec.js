@@ -756,4 +756,37 @@ describe('Autocomplete', function () {
 
         expect($input).not.toHaveClass(TEST_INVALID_CLASS);
     });
+
+    it('should remove the invalid class after an element has been selected by click', function () {
+        const $input = $('.test-element');
+        const TEST_INVALID_CLASS = 'TEST_INVALID';
+        const options = {
+            dataSource: test_dataSource,
+            invalidClass: TEST_INVALID_CLASS,
+            validation: jasmine.createSpy('validation spy').and.callFake((inputValue) => {
+                return inputValue === test_dataSource[2].name;
+            }),
+            filter: function (input, data) {
+                return data.filter(x => x.name === input);
+            }
+        };
+        $input.autocomplete(options);
+        const dropdown = $('.autocomplete > ul.items.dropdown-menu');
+
+        expect(options.validation).not.toHaveBeenCalled();
+
+        $input.val(test_dataSource[1].name);
+        fireInputEvent($input[0]);
+        fireBlurEvent($input[0]);
+
+        expect(options.validation).toHaveBeenCalledTimes(1);
+        expect($input).toHaveClass(TEST_INVALID_CLASS);
+
+        $('.autocomplete button.btn.btn-default').click();
+        dropdown.find('li:eq(2)').click();
+
+        expect($input).toHaveValue(options.dataSource[2].name);
+        expect($input).not.toHaveClass(TEST_INVALID_CLASS);
+        expect(options.validation).toHaveBeenCalledTimes(1);
+    });
 });

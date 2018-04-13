@@ -443,6 +443,8 @@ var RequestBundler = function () {
                 this.$container[0].setAttribute('selected', value[this.options.valueProperty] || '');
                 this.$container.data('selected', value);
 
+                this.$input.removeClass(this.options.invalidClass);
+
                 if (this.$valueField) {
                     this.$valueField.val(value[this.options.valueProperty] || '');
                 }
