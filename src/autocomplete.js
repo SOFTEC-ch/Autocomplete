@@ -56,7 +56,7 @@
                 }
             }.bind(this.$input[0]);
 
-            this._onInputHandler = function () {
+            this._openOnInputHandler = function () {
                 _this.open = true;
             }.bind(this.$input[0]);
 
@@ -172,7 +172,7 @@
 
         initializeEventHandlers() {
             if (this.options.openOnInput) {
-                this.$input[0].addEventListener('input', this._onInputHandler);
+                this.$input[0].addEventListener('input', this._openOnInputHandler);
             }
             this.$input[0].addEventListener('keydown', this._onKeyDown);
             this.$input[0].addEventListener('blur', this._onBlurHandler);
@@ -184,7 +184,7 @@
 
         removeEventHandlers() {
             if (this.options.openOnInput) {
-                this.$input[0].removeEventListener('input', this._onInputHandler);
+                this.$input[0].removeEventListener('input', this._openOnInputHandler);
             }
             this.$input[0].removeEventListener('keydown', this._onKeyDown);
             this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
@@ -291,7 +291,7 @@
             if (!dataItems || !dataItems.length)
                 return;
 
-            let _this = this;
+            const _this = this;
             this.destroyDropdownItems();
             dataItems.forEach(x => {
                 let li = document.createElement('li');
@@ -308,6 +308,7 @@
                 _this.$items.append(li);
             });
         }
+
 
         destroyDropdownItems() {
             this.$items.children().remove();
@@ -349,23 +350,25 @@
         }
 
         setMenuDirection() {
-            let inputOffset = this.$input.offset();
-            let inputHeight = this.$input.outerHeight();
-            let inputMarginTop = parseInt(this.$input.css('margin-top'));
+            requestAnimationFrame(() => {
+                let inputOffset = this.$input.offset();
+                let inputHeight = this.$input.outerHeight();
+                let inputMarginTop = parseInt(this.$input.css('margin-top'));
 
-            // let menuOffset = this.$items.offset();
-            let menuHeight = this.$items.outerHeight();
+                // let menuOffset = this.$items.offset();
+                let menuHeight = this.$items.outerHeight();
 
-            let vpHeight = $(window).height();
+                let vpHeight = $(window).height();
 
-            let noSpaceBelow = inputOffset.top + inputHeight + menuHeight > vpHeight;
-            let spaceAbove = inputOffset.top - $(window).scrollTop() - menuHeight > 0;
+                let noSpaceBelow = inputOffset.top + inputHeight + menuHeight > vpHeight;
+                let spaceAbove = inputOffset.top - $(window).scrollTop() - menuHeight > 0;
 
-            if (noSpaceBelow && spaceAbove) {
-                this.$items.offset({top: inputOffset.top - menuHeight - inputMarginTop, left: inputOffset.left})
-            } else {
-                this.$items.offset({top: inputOffset.top + inputHeight + inputMarginTop, left: inputOffset.left})
-            }
+                if (noSpaceBelow && spaceAbove) {
+                    this.$items.offset({top: inputOffset.top - menuHeight - inputMarginTop, left: inputOffset.left})
+                } else {
+                    this.$items.offset({top: inputOffset.top + inputHeight + inputMarginTop, left: inputOffset.left})
+                }
+            });
         }
     }
 
