@@ -126,7 +126,7 @@ var RequestBundler = function () {
                 }
             }.bind(this.$input[0]);
 
-            this._onInputHandler = function () {
+            this._openOnInputHandler = function () {
                 _this.open = true;
             }.bind(this.$input[0]);
 
@@ -247,7 +247,7 @@ var RequestBundler = function () {
             key: 'initializeEventHandlers',
             value: function initializeEventHandlers() {
                 if (this.options.openOnInput) {
-                    this.$input[0].addEventListener('input', this._onInputHandler);
+                    this.$input[0].addEventListener('input', this._openOnInputHandler);
                 }
                 this.$input[0].addEventListener('keydown', this._onKeyDown);
                 this.$input[0].addEventListener('blur', this._onBlurHandler);
@@ -260,7 +260,7 @@ var RequestBundler = function () {
             key: 'removeEventHandlers',
             value: function removeEventHandlers() {
                 if (this.options.openOnInput) {
-                    this.$input[0].removeEventListener('input', this._onInputHandler);
+                    this.$input[0].removeEventListener('input', this._openOnInputHandler);
                 }
                 this.$input[0].removeEventListener('keydown', this._onKeyDown);
                 this.$input[0].removeEventListener(this.options.filterOn, this._filterOnHandler);
@@ -312,7 +312,8 @@ var RequestBundler = function () {
 
                 var _this = this;
                 this.destroyDropdownItems();
-                dataItems.forEach(function (x) {
+
+                var liElements = dataItems.map(function (x) {
                     var li = document.createElement('li');
                     li.setAttribute('value', x[_this.options.valueProperty]);
                     li.innerHTML = '<a>' + x[_this.options.nameProperty] + '</a>';
@@ -324,8 +325,14 @@ var RequestBundler = function () {
                     if (_this4.options.preAppendDataItem) {
                         _this4.options.preAppendDataItem(li, x);
                     }
-                    _this.$items.append(li);
+                    return li;
                 });
+
+                for (var i = 0, s = 400; i < liElements.length + s; i += s) {
+                    liElements.slice(i, s).forEach(function (li) {
+                        return _this.$items.append(li);
+                    });
+                }
             }
         }, {
             key: 'destroyDropdownItems',
@@ -373,23 +380,27 @@ var RequestBundler = function () {
         }, {
             key: 'setMenuDirection',
             value: function setMenuDirection() {
-                var inputOffset = this.$input.offset();
-                var inputHeight = this.$input.outerHeight();
-                var inputMarginTop = parseInt(this.$input.css('margin-top'));
+                var _this5 = this;
 
-                // let menuOffset = this.$items.offset();
-                var menuHeight = this.$items.outerHeight();
+                requestAnimationFrame(function () {
+                    var inputOffset = _this5.$input.offset();
+                    var inputHeight = _this5.$input.outerHeight();
+                    var inputMarginTop = parseInt(_this5.$input.css('margin-top'));
 
-                var vpHeight = $(window).height();
+                    // let menuOffset = this.$items.offset();
+                    var menuHeight = _this5.$items.outerHeight();
 
-                var noSpaceBelow = inputOffset.top + inputHeight + menuHeight > vpHeight;
-                var spaceAbove = inputOffset.top - $(window).scrollTop() - menuHeight > 0;
+                    var vpHeight = $(window).height();
 
-                if (noSpaceBelow && spaceAbove) {
-                    this.$items.offset({ top: inputOffset.top - menuHeight - inputMarginTop, left: inputOffset.left });
-                } else {
-                    this.$items.offset({ top: inputOffset.top + inputHeight + inputMarginTop, left: inputOffset.left });
-                }
+                    var noSpaceBelow = inputOffset.top + inputHeight + menuHeight > vpHeight;
+                    var spaceAbove = inputOffset.top - $(window).scrollTop() - menuHeight > 0;
+
+                    if (noSpaceBelow && spaceAbove) {
+                        _this5.$items.offset({ top: inputOffset.top - menuHeight - inputMarginTop, left: inputOffset.left });
+                    } else {
+                        _this5.$items.offset({ top: inputOffset.top + inputHeight + inputMarginTop, left: inputOffset.left });
+                    }
+                });
             }
         }, {
             key: 'open',
@@ -421,7 +432,7 @@ var RequestBundler = function () {
                 return this.$container.data('selected');
             },
             set: function set(value) {
-                var _this5 = this;
+                var _this6 = this;
 
                 // reflect the value of the selected property as an HTML attribute
                 if (!value) {
@@ -433,7 +444,7 @@ var RequestBundler = function () {
                         value = +value; // if value is a string we try to convert it to a number, otherwise we leave it as a string
                     }
                     var elem = this.data.filter(function (x) {
-                        return x[_this5.options.valueProperty] === value;
+                        return x[_this6.options.valueProperty] === value;
                     });
                     if (elem && elem.length && elem[0]) {
                         value = elem[0];
@@ -466,10 +477,10 @@ var RequestBundler = function () {
         valueField: null,
         dataSource: null,
         filter: function filter(input, data) {
-            var _this6 = this;
+            var _this7 = this;
 
             return data.filter(function (x) {
-                return ~x[_this6.options.nameProperty].toLowerCase().indexOf(input.toLowerCase());
+                return ~x[_this7.options.nameProperty].toLowerCase().indexOf(input.toLowerCase());
             });
         },
         filterOn: 'input',

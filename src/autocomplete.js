@@ -293,7 +293,8 @@
 
             const _this = this;
             this.destroyDropdownItems();
-            dataItems.forEach(x => {
+
+            const liElements = dataItems.map(x => {
                 let li = document.createElement('li');
                 li.setAttribute('value', x[_this.options.valueProperty]);
                 li.innerHTML = '<a>' + x[_this.options.nameProperty] + '</a>';
@@ -305,10 +306,13 @@
                 if (this.options.preAppendDataItem) {
                     this.options.preAppendDataItem(li, x);
                 }
-                _this.$items.append(li);
+                return li;
             });
-        }
 
+            for (let i = 0, s = 400; i < liElements.length + s; i += s) {
+                liElements.slice(i, s).forEach(li => _this.$items.append(li));
+            }
+        }
 
         destroyDropdownItems() {
             this.$items.children().remove();

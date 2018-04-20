@@ -77,6 +77,87 @@
             }
         }
 
+        var dataSource = [];
+        for (var i = 0; i < 1500; i++) {
+            dataSource.push({value: i, name: 'asdf' + i});
+        }
+
+        // var dataSource = [{
+        //     "id": 1,
+        //     "name": 'This',
+        //     "ignore": false
+        // },
+        //     {
+        //         "id": 2,
+        //         "name": 'is',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 3,
+        //         "name": 'test',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 4,
+        //         "name": 'data',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 5,
+        //         "name": 'to',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 6,
+        //         "name": 'show',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 7,
+        //         "name": 'the',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 8,
+        //         "name": 'usage',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 9,
+        //         "name": 'of',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 10,
+        //         "name": 'the',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 11,
+        //         "name": 'autocomplete',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 12,
+        //         "name": 'component',
+        //         "ignore": false
+        //     },
+        //     {
+        //         "id": 13,
+        //         "name": 'This',
+        //         "ignore": true
+        //     },
+        //     {
+        //         "id": 14,
+        //         "name": 'is',
+        //         "ignore": true
+        //     },
+        //     {
+        //         "id": 15,
+        //         "name": 'ignored',
+        //         "ignore": true
+        //     }
+        // ];
 
         $('.lookup').autocomplete({
             validation,
@@ -86,82 +167,7 @@
             openOnInput: true,
             nameProperty: 'name',
             valueField: '#hidden-field',
-            dataSource: [{
-                "id": 1,
-                "name": 'This',
-                "ignore": false
-            },
-            {
-                "id": 2,
-                "name": 'is',
-                "ignore": false
-            },
-            {
-                "id": 3,
-                "name": 'test',
-                "ignore": false
-            },
-            {
-                "id": 4,
-                "name": 'data',
-                "ignore": false
-            },
-            {
-                "id": 5,
-                "name": 'to',
-                "ignore": false
-            },
-            {
-                "id": 6,
-                "name": 'show',
-                "ignore": false
-            },
-            {
-                "id": 7,
-                "name": 'the',
-                "ignore": false
-            },
-            {
-                "id": 8,
-                "name": 'usage',
-                "ignore": false
-            },
-            {
-                "id": 9,
-                "name": 'of',
-                "ignore": false
-            },
-            {
-                "id": 10,
-                "name": 'the',
-                "ignore": false
-            },
-            {
-                "id": 11,
-                "name": 'autocomplete',
-                "ignore": false
-            },
-            {
-                "id": 12,
-                "name": 'component',
-                "ignore": false
-            },
-            {
-                "id": 13,
-                "name": 'This',
-                "ignore": true
-            },
-            {
-                "id": 14,
-                "name": 'is',
-                "ignore": true
-            },
-            {
-                "id": 15,
-                "name": 'ignored',
-                "ignore": true
-            }
-            ]
+            dataSource: dataSource
         });
 
 
