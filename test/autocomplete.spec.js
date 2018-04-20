@@ -790,8 +790,8 @@ describe('Autocomplete', function () {
         expect(options.validation).toHaveBeenCalledTimes(1);
     });
 
-    it('should open the dropdown-menu with 1500 elements on click in less than 90ms', function () {
-        const maxTime = 90;
+    it('should open the dropdown-menu with 1500 elements on click in less than 100ms', function () {
+        const maxTime = 100;
         const dataSource = [];
         for (var i = 0; i < 1500; i++) {
             const value = 123498765 + i;
@@ -814,8 +814,8 @@ describe('Autocomplete', function () {
     });
 
 
-    it('should open the dropdown-menu with 1500 elements on text input in less than 90ms', function () {
-        const maxTime = 90;
+    it('should open the dropdown-menu with 1500 elements on text input in less than 100ms', function () {
+        const maxTime = 100;
         const $input = $('.test-element');
         const filterFunc = jasmine.createSpy("filter() spy");
         const preappendFunc = jasmine.createSpy("preAppendDataItem() spy");
