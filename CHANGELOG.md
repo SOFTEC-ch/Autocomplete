@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.67] - 2018-04-20
+
+### Changed
+- minor performance optimization for when there are a lot of elements in the dropdown
+
 ## [1.0.66] - 2018-04-13
 
 ### Fix

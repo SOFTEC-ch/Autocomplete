@@ -21,8 +21,8 @@
         overflow-y: auto;
     }
 
-    .test{
-        background-color:lime;
+    .test {
+        background-color: lime;
     }
 </style>
 <body>
@@ -35,13 +35,14 @@
         <input type="text" placeholder="Note eingeben..." class="lookup"/>
     </div>
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="lookup" open-on-input="false" />
+        <input type="text" placeholder="Note eingeben..." class="lookup" open-on-input="false"/>
     </div>
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="lookup" validation-function="validationMsg(input, data)" />
+        <input type="text" placeholder="Note eingeben..." class="lookup"
+               validation-function="validationMsg(input, data)"/>
     </div>
     <div class="col-md-2">
-        <input type="text" placeholder="Note eingeben..." class="lookup" pre-append="preAppendDataItem(li, item)" />
+        <input type="text" placeholder="Note eingeben..." class="lookup" pre-append="preAppendDataItem(li, item)"/>
     </div>
 
     <script type="application/javascript">
@@ -64,33 +65,27 @@
         };
 
         function preAppendDataItem(li, item) {
-            if(item.name == 'is'){
+            if (item.name == 'is') {
                 $(li).addClass("test")
             }
         }
 
-        function validationMsg(input, data)
-        {
-            if(input == 'asdf')
-            {
+        function validationMsg(input, data) {
+            if (input == 'asdf') {
                 alert("its asdf")
             }
         }
 
+        var dataSource2 = [];
+        for (var i = 0; i < 1500; i++) {
+            dataSource2.push({value: i, name: 'asdf' + i});
+        }
 
-        $('.lookup').autocomplete({
-            validation,
-            filter,
-            appendToBody: true,
-            valueProperty: 'id',
-            openOnInput: true,
-            nameProperty: 'name',
-            valueField: '#hidden-field',
-            dataSource: [{
-                "id": 1,
-                "name": 'This',
-                "ignore": false
-            },
+        var dataSource = [{
+            "id": 1,
+            "name": 'This',
+            "ignore": false
+        },
             {
                 "id": 2,
                 "name": 'is',
@@ -161,7 +156,17 @@
                 "name": 'ignored',
                 "ignore": true
             }
-            ]
+        ];
+
+        $('.lookup').autocomplete({
+            validation,
+            filter,
+            appendToBody: true,
+            valueProperty: 'id',
+            openOnInput: true,
+            nameProperty: 'name',
+            valueField: '#hidden-field',
+            dataSource: dataSource
         });
 
 
