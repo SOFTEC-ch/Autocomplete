@@ -309,7 +309,7 @@
                 return li;
             });
 
-            for (let i = 0, s = 400; i < liElements.length + s; i += s) {
+            for (let i = 0, s = 400; i < liElements.length; i += 400, s += 400) {
                 liElements.slice(i, s).forEach(li => _this.$items.append(li));
             }
         }
