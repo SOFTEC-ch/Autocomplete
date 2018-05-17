@@ -309,8 +309,9 @@
                 return li;
             });
 
-            for (let i = 0, s = 400; i < liElements.length; i += 400, s += 400) {
-                liElements.slice(i, s).forEach(li => _this.$items.append(li));
+            for (let i = 0, s = 400; i < liElements.length; i += s) {
+                console.log('take from' + i + ' to ' + (i+s));
+                liElements.slice(i, i + s).forEach(li => _this.$items.append(li));
             }
         }
 

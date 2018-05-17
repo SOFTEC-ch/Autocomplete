@@ -328,9 +328,9 @@ var RequestBundler = function () {
                     return li;
                 });
 
-                for (var i = 0, s = 400; i < liElements.length; i += 400, s += 400) {
-                    console.log('take from' + i + ' to ' + s);
-                    liElements.slice(i, s).forEach(function (li) {
+                for (var i = 0, s = 400; i < liElements.length; i += s) {
+                    console.log('take from' + i + ' to ' + (i + s));
+                    liElements.slice(i, i + s).forEach(function (li) {
                         return _this.$items.append(li);
                     });
                 }
