@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.95] - 2018-05-17
+
+### Fix
+- Fix batch loading of dropdown will only show the first 400 items.
+
 ## [1.0.67] - 2018-04-20
 
 ### Changed
