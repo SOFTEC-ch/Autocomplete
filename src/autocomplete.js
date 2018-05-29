@@ -294,6 +294,16 @@
             const _this = this;
             this.destroyDropdownItems();
 
+            if (this.options.distinct) {
+                let distinct = [];
+                for (let item of dataItems) {
+                    if (!distinct.filter(x => x[this.options.nameProperty] === item[this.options.nameProperty]).length) {
+                        distinct.push(item);
+                    }
+                }
+                dataItems = distinct;
+            }
+
             const liElements = dataItems.map(x => {
                 let li = document.createElement('li');
                 li.setAttribute('value', x[_this.options.valueProperty]);
@@ -310,7 +320,7 @@
             });
 
             for (let i = 0, s = 400; i < liElements.length; i += s) {
-                console.log('take from' + i + ' to ' + (i+s));
+                console.log('take from' + i + ' to ' + (i + s));
                 liElements.slice(i, i + s).forEach(li => _this.$items.append(li));
             }
         }
@@ -394,7 +404,8 @@
         onSelected: null,
         invalidClass: 'invalid',
         initialValueSelectedEvent: 'initial-value-selected.autocomplete',
-        appendToBody: false
+        appendToBody: false,
+        distinct: false
     };
 
     const requestBundler = new RequestBundler($.get);
