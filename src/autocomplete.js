@@ -130,7 +130,7 @@
                 this.$items.detach().appendTo('body');
             }
 
-            var attr = this.$input.attr("open-on-input");
+            let attr = this.$input.attr("open-on-input");
             if (attr == 'false') {
                 this.options.openOnInput = false
             }
@@ -138,7 +138,7 @@
                 this.options.openOnInput = true
             }
 
-            var attr = this.$input.attr("select-first");
+            attr = this.$input.attr("select-first");
             if (attr == 'true') {
                 this.options.selectFirstMatch = true
             }
@@ -167,6 +167,14 @@
 
             if (this.options.validation) {
                 this.options.validation = this.options.validation.bind(this);
+            }
+
+            attr = this.$input.attr("distinct");
+            if (attr == 'false') {
+                this.options.distinct = false;
+            }
+            else {
+                this.options.distinct = true;
             }
         }
 
