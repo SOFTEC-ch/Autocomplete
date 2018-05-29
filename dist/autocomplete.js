@@ -242,6 +242,11 @@ var RequestBundler = function () {
                 if (this.options.validation) {
                     this.options.validation = this.options.validation.bind(this);
                 }
+
+                var distinctAttr = this.$input.attr("distinct");
+                if (distinctAttr === 'true') {
+                    this.options.distinct = true;
+                }
             }
         }, {
             key: 'initializeEventHandlers',
@@ -304,6 +309,16 @@ var RequestBundler = function () {
                 return results;
             }
         }, {
+            key: 'getUniqueValuesOfKey',
+            value: function getUniqueValuesOfKey(array, key) {
+                return array.reduce(function (carry, item) {
+                    if (item[key] && !carry.filter(function (x) {
+                        return x[key] === item[key];
+                    }).length) carry.push(item);
+                    return carry;
+                }, []);
+            }
+        }, {
             key: 'buildDropdownItems',
             value: function buildDropdownItems(dataItems) {
                 var _this4 = this;
@@ -312,6 +327,10 @@ var RequestBundler = function () {
 
                 var _this = this;
                 this.destroyDropdownItems();
+
+                if (this.options.distinct) {
+                    dataItems = this.getUniqueValuesOfKey(dataItems, this.options.nameProperty);
+                }
 
                 var liElements = dataItems.map(function (x) {
                     var li = document.createElement('li');
@@ -493,7 +512,8 @@ var RequestBundler = function () {
         onSelected: null,
         invalidClass: 'invalid',
         initialValueSelectedEvent: 'initial-value-selected.autocomplete',
-        appendToBody: false
+        appendToBody: false,
+        distinct: false
     };
 
     var requestBundler = new RequestBundler($.get);

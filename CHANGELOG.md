@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0] - 2018-05-29
+
+### Fix
+- Added the option to only show unique dropdown items.
+
 ## [1.0.95] - 2018-05-17
 
 ### Fix

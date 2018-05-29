@@ -168,6 +168,11 @@
             if (this.options.validation) {
                 this.options.validation = this.options.validation.bind(this);
             }
+
+            const distinctAttr = this.$input.attr("distinct");
+            if (distinctAttr === 'true') {
+                this.options.distinct = true;
+            }
         }
 
         initializeEventHandlers() {
@@ -287,12 +292,23 @@
             return results;
         }
 
+        getUniqueValuesOfKey(array, key) {
+            return array.reduce(function (carry, item) {
+                if (!carry.filter(x => x[key] === item[key]).length) carry.push(item);
+                return carry;
+            }, []);
+        }
+
         buildDropdownItems(dataItems) {
             if (!dataItems || !dataItems.length)
                 return;
 
             const _this = this;
             this.destroyDropdownItems();
+
+            if (this.options.distinct) {
+                dataItems = this.getUniqueValuesOfKey(dataItems, this.options.nameProperty);
+            }
 
             const liElements = dataItems.map(x => {
                 let li = document.createElement('li');
@@ -310,7 +326,7 @@
             });
 
             for (let i = 0, s = 400; i < liElements.length; i += s) {
-                console.log('take from' + i + ' to ' + (i+s));
+                console.log('take from' + i + ' to ' + (i + s));
                 liElements.slice(i, i + s).forEach(li => _this.$items.append(li));
             }
         }
@@ -394,7 +410,8 @@
         onSelected: null,
         invalidClass: 'invalid',
         initialValueSelectedEvent: 'initial-value-selected.autocomplete',
-        appendToBody: false
+        appendToBody: false,
+        distinct: false
     };
 
     const requestBundler = new RequestBundler($.get);
