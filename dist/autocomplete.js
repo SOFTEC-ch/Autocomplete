@@ -242,6 +242,11 @@ var RequestBundler = function () {
                 if (this.options.validation) {
                     this.options.validation = this.options.validation.bind(this);
                 }
+
+                var distinctAttr = this.$input.attr("distinct");
+                if (distinctAttr === 'true') {
+                    this.options.distinct = true;
+                }
             }
         }, {
             key: 'initializeEventHandlers',
@@ -304,6 +309,16 @@ var RequestBundler = function () {
                 return results;
             }
         }, {
+            key: 'getUniqueValuesOfKey',
+            value: function getUniqueValuesOfKey(array, key) {
+                return array.reduce(function (carry, item) {
+                    if (item[key] && !carry.filter(function (x) {
+                        return x[key] === item[key];
+                    }).length) carry.push(item);
+                    return carry;
+                }, []);
+            }
+        }, {
             key: 'buildDropdownItems',
             value: function buildDropdownItems(dataItems) {
                 var _this4 = this;
@@ -314,41 +329,7 @@ var RequestBundler = function () {
                 this.destroyDropdownItems();
 
                 if (this.options.distinct) {
-                    var distinct = [];
-                    var _iteratorNormalCompletion = true;
-                    var _didIteratorError = false;
-                    var _iteratorError = undefined;
-
-                    try {
-                        var _loop = function _loop() {
-                            var item = _step.value;
-
-                            if (!distinct.filter(function (x) {
-                                return x[_this4.options.nameProperty] === item[_this4.options.nameProperty];
-                            }).length) {
-                                distinct.push(item);
-                            }
-                        };
-
-                        for (var _iterator = dataItems[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                            _loop();
-                        }
-                    } catch (err) {
-                        _didIteratorError = true;
-                        _iteratorError = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
-                            }
-                        } finally {
-                            if (_didIteratorError) {
-                                throw _iteratorError;
-                            }
-                        }
-                    }
-
-                    dataItems = distinct;
+                    dataItems = this.getUniqueValuesOfKey(dataItems, this.options.nameProperty);
                 }
 
                 var liElements = dataItems.map(function (x) {

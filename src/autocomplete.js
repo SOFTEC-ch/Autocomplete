@@ -130,7 +130,7 @@
                 this.$items.detach().appendTo('body');
             }
 
-            let attr = this.$input.attr("open-on-input");
+            var attr = this.$input.attr("open-on-input");
             if (attr == 'false') {
                 this.options.openOnInput = false
             }
@@ -138,7 +138,7 @@
                 this.options.openOnInput = true
             }
 
-            attr = this.$input.attr("select-first");
+            var attr = this.$input.attr("select-first");
             if (attr == 'true') {
                 this.options.selectFirstMatch = true
             }
@@ -169,11 +169,8 @@
                 this.options.validation = this.options.validation.bind(this);
             }
 
-            attr = this.$input.attr("distinct");
-            if (attr == 'false') {
-                this.options.distinct = false;
-            }
-            else {
+            const distinctAttr = this.$input.attr("distinct");
+            if (distinctAttr === 'true') {
                 this.options.distinct = true;
             }
         }
@@ -295,6 +292,13 @@
             return results;
         }
 
+        getUniqueValuesOfKey(array, key) {
+            return array.reduce(function (carry, item) {
+                if (item[key] && !carry.filter(x => x[key] === item[key]).length) carry.push(item);
+                return carry;
+            }, []);
+        }
+
         buildDropdownItems(dataItems) {
             if (!dataItems || !dataItems.length)
                 return;
@@ -303,13 +307,7 @@
             this.destroyDropdownItems();
 
             if (this.options.distinct) {
-                let distinct = [];
-                for (let item of dataItems) {
-                    if (!distinct.filter(x => x[this.options.nameProperty] === item[this.options.nameProperty]).length) {
-                        distinct.push(item);
-                    }
-                }
-                dataItems = distinct;
+                dataItems = this.getUniqueValuesOfKey(dataItems, this.options.nameProperty);
             }
 
             const liElements = dataItems.map(x => {
