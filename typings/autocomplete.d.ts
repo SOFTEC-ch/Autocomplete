@@ -30,9 +30,11 @@ interface AutocompleteOptions {
 
     appendToBody?: boolean;
 
-    openOnInput: boolean;
+    openOnInput?: boolean;
 
-    selectFirstMatch: boolean;
+    selectFirstMatch?: boolean;
+
+    distinct?: boolean;
 }
 
 interface Autocomplete {
