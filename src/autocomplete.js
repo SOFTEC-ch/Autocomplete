@@ -294,7 +294,7 @@
 
         getUniqueValuesOfKey(array, key) {
             return array.reduce(function (carry, item) {
-                if (item[key] && !carry.filter(x => x[key] === item[key]).length) carry.push(item);
+                if (!carry.filter(x => x[key] === item[key]).length) carry.push(item);
                 return carry;
             }, []);
         }
