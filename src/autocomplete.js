@@ -278,6 +278,9 @@
             this.buildDropdownItems(results);
 
             if (results && results.length && input) {
+                if (this.options.distinct) {
+                    results = this.getUniqueValuesOfKey(results, this.options.nameProperty);
+                }
                 if (results.length === 1 || this.options.selectFirstMatch) {
                     if (this.autoSelect || this.options.selectFirstMatch) {
                         this.selected = results[0];
@@ -326,7 +329,6 @@
             });
 
             for (let i = 0, s = 400; i < liElements.length; i += s) {
-                console.log('take from' + i + ' to ' + (i + s));
                 liElements.slice(i, i + s).forEach(li => _this.$items.append(li));
             }
         }

@@ -296,6 +296,9 @@ var RequestBundler = function () {
                 this.buildDropdownItems(results);
 
                 if (results && results.length && input) {
+                    if (this.options.distinct) {
+                        results = this.getUniqueValuesOfKey(results, this.options.nameProperty);
+                    }
                     if (results.length === 1 || this.options.selectFirstMatch) {
                         if (this.autoSelect || this.options.selectFirstMatch) {
                             this.selected = results[0];
@@ -312,7 +315,7 @@ var RequestBundler = function () {
             key: 'getUniqueValuesOfKey',
             value: function getUniqueValuesOfKey(array, key) {
                 return array.reduce(function (carry, item) {
-                    if (item[key] && !carry.filter(function (x) {
+                    if (!carry.filter(function (x) {
                         return x[key] === item[key];
                     }).length) carry.push(item);
                     return carry;
@@ -348,7 +351,6 @@ var RequestBundler = function () {
                 });
 
                 for (var i = 0, s = 400; i < liElements.length; i += s) {
-                    console.log('take from' + i + ' to ' + (i + s));
                     liElements.slice(i, i + s).forEach(function (li) {
                         return _this.$items.append(li);
                     });
